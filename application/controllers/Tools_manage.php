@@ -32,9 +32,57 @@ class Tools_manage extends CI_Controller {
 
 	public function add_tool_type()
 	{
+		// 表單驗證
+		$this->form_validation->set_message('required','{field}未填');
+		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+		$this->form_validation->set_rules('type_name', '類別名稱', 'trim|required');
+		// 表單判斷
+		if($this->form_validation->run() == FALSE) 
+		{
 		$this->load->view('header');
 		$this->load->view('tools_manage_add_tool_type');
 		$this->load->view('footer');
+		}
+		else
+		{
+			// 接收表單
+			$formdata['type_name'] = $this->input->post('type_name');
+			// 新增至資料庫
+			$this->tool_type_model->add($formdata);
+
+			// 回首頁
+			redirect('/Tools_manage');
+		}
+	}
+
+// 修改公告
+	public function modify_tool_type($id)
+	{
+		// 表單驗證
+		$this->form_validation->set_message('required','{field}未填');
+		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+		$this->form_validation->set_rules('type_name', '類別名稱', 'trim|required');
+		// 表單判斷
+		if($this->form_validation->run() == FALSE) 
+		{
+			// $data['id'] = $id;
+			$data['tool_type_id'] = $this->tool_type_model->query($id);
+			// 載入 view
+			$this->load->view('header');
+			$this->load->view('tools_manage_modify_tool_type',$data);
+			$this->load->view('footer');
+		}
+		else
+		{
+			// 接收表單
+			$formdata['start_date'] = $this->input->post('start_date');
+			$formdata['phone'] = $this->input->post('phone');
+			// 修改資料庫
+			$this->repair_list_model->modify($id, $formdata);
+
+			// 回首頁
+			redirect('/Tools_manage');
+		}
 	}
 
 	// 新增公告

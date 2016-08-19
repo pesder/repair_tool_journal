@@ -3,8 +3,8 @@
 <table>
 	<tr>
 		<td>類別名稱/td>
-		<td><?=form_error('start_date')?>
-		<?=form_input('start_date', set_value('start_date'))?></td>
+		<td><?=form_error('type_name')?>
+		<?=form_input('type_name', set_value('type_name'))?></td>
 	</tr>
 	<tr>
 		<td></td>
