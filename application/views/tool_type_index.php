@@ -10,7 +10,7 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($tooltype as $row): ?>
+          <?php foreach ($tool_type as $row): ?>
           <tr>
             <td><?=$row->id?></td>
             <td><?=$row->type_name?></td>

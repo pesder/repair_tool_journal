@@ -19,62 +19,55 @@ class Tool_type extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	// 新增公告
+	// 新增類型
 	public function add()
-	{
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->form_validation->set_rules('start_date', '送修日期', 'trim|required');
-		$this->form_validation->set_rules('phone', '手機號碼', 'trim|required');
+		$this->form_validation->set_rules('type_name', '類別名稱', 'trim|required');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
-			// 載入 view
-			$this->load->view('header');
-			$this->load->view('lists_add');
-			$this->load->view('footer');
+		$this->load->view('header');
+		$this->load->view('tool_type_add');
+		$this->load->view('footer');
 		}
 		else
 		{
 			// 接收表單
-			$formdata['start_date'] = $this->input->post('start_date');
-			$formdata['phone'] = $this->input->post('phone');
+			$formdata['type_name'] = $this->input->post('type_name');
 			// 新增至資料庫
 			$this->tool_type_model->add($formdata);
 
 			// 回首頁
-			redirect('/lists');
+			redirect('/Tool_type');
 		}
 	}
-	// 修改公告
+	// 修改類型
 	public function modify($id)
 	{
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->form_validation->set_rules('start_date', '送修日期', 'trim|required');
-		$this->form_validation->set_rules('phone', '手機號碼', 'trim|required');
+		$this->form_validation->set_rules('type_name', '類別名稱', 'trim|required');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
 			// $data['id'] = $id;
-			$data['lists_id'] = $this->tool_type_model->query($id);
+			$data['tool_type'] = $this->tool_type_model->query($id);
 			// 載入 view
 			$this->load->view('header');
-			$this->load->view('lists_modify',$data);
+			$this->load->view('tool_type_modify',$data);
 			$this->load->view('footer');
 		}
 		else
 		{
 			// 接收表單
-			$formdata['start_date'] = $this->input->post('start_date');
-			$formdata['phone'] = $this->input->post('phone');
-			// 修改資料庫
+			$formdata['type_name'] = $this->input->post('type_name');
 			$this->tool_type_model->modify($id, $formdata);
 
 			// 回首頁
-			redirect('/lists');
+			redirect('/Tool_type');
 		}
 	}
 
@@ -86,7 +79,7 @@ class Tool_type extends CI_Controller {
 			$this->tool_type_model->del($id);
 
 			// 回首頁
-			redirect('/lists');
+			redirect('/Tool_type');
 		}
 	}
 }
