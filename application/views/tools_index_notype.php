@@ -1,0 +1,1 @@
+    <div class="bg-primary"><h1 >查詢不到種類，請先<a href="<?=config_item('base_url');?>/index.php/Tool_type/add" class="btn btn-primary">新增工具種類</a></h1></div>
