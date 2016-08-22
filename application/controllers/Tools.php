@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Tools extends CI_Controller {
 
 	// 用於查詢 tool_type 資料表的陣列
-	private $tooltype = new array();
-	private $vendor = new array();
+	private $tooltype;
+	private $vendor;
 	public function __construct()
 		{
 			parent::__construct();
