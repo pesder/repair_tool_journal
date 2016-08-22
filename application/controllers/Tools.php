@@ -5,6 +5,7 @@ class Tools extends CI_Controller {
 
 	// 用於查詢 tool_type 資料表的陣列
 	private $tooltype = new array();
+	private $vendor = new array();
 	public function __construct()
 		{
 			parent::__construct();
@@ -13,18 +14,22 @@ class Tools extends CI_Controller {
 			// 載入 tool_type 內容並存入陣列
 			$this->load->model('tool_type_model');
 			$this->tooltype = $this->tool_type_model->query();
+			$this->load->model('vendor_model');
+			$this->vendor = $this->vendor_model->query();
         }
 
 	public function index()
 	{
-		$data['Tools'] = $this->tools_model->query();
+		$data['tools'] = $this->tools_model->query();
+		$data['tools'] = str_replace($this->tooltype['id'], $this->tooltype['type_name'], $data['tools']['type']);
 		// 載入 view
 		$this->load->view('header');
+		// 檢查是否存在 tool_type ，若無則顯示相關資訊
 		if(empty($this->tooltype))
 		{
 			$this->load->view('tools_index_notype');
 		}
-		$this->load->view('Tools_index',$data);
+		$this->load->view('tools_index',$data);
 		$this->load->view('footer');
 	}
 
