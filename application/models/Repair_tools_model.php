@@ -35,6 +35,30 @@ class repair_tools_model extends CI_Model {
         		return $query->result();
         	}
         }
+       //查詢(陣列)
+        public function query($id = 0) 
+        {
+
+                $this->db->select('*');
+                $this->db->from('repair_tools');
+                if ($id > 0) 
+                {
+                        $this->db->where('id', $id);
+                }
+                $this->db->order_by('id','desc');
+                //$this->db->where();
+                $query = $this->db->get();
+                
+                // 回傳
+                if ($id > 0)
+                {
+                        return $query->row_array();
+                }
+                else
+                {
+                        return $query->result_array();
+                }
+        }
 
         //新增
         public function add($data)

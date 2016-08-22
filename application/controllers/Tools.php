@@ -21,11 +21,14 @@ class Tools extends CI_Controller {
 	public function index()
 	{
 		$data['tools'] = $this->tools_model->query();
-		$data['tools'] = str_replace($this->tooltype['id'], $this->tooltype['type_name'], $data['tools']['type']);
+		$this->load->model('tool_type_model');
+		$data['tooltype'] = $this->tool_type_model->query();
+		print_r($data['tooltype']);
+		//$data['tools'] = str_replace($data['tooltype']['id'], $data['tooltype']['type_name'], $data['tools']['type']);
 		// 載入 view
 		$this->load->view('header');
 		// 檢查是否存在 tool_type ，若無則顯示相關資訊
-		if(empty($this->tooltype))
+		if(empty($data['tooltype']))
 		{
 			$this->load->view('tools_index_notype');
 		}

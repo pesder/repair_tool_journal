@@ -1,5 +1,6 @@
     <div class="bg-primary"><h1 >工具列表</h1></div>
     <div ><a href="<?=config_item('base_url');?>/index.php/Tools/add" class="btn btn-primary">新增工具</a></div>
+    <?php print_r($tools); print_r($tooltype);?>
     <div>
       <table class="table">
         <thead>
