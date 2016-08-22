@@ -35,6 +35,8 @@ class Tools extends CI_Controller {
 
 	// 新增類型
 	public function add()
+
+	{
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
