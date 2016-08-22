@@ -20,9 +20,9 @@ class Tools extends CI_Controller {
 
 	public function index()
 	{
-		$data['tools'] = $this->tools_model->query();
+		$data['tools'] = $this->tools_model->query_array();
 		$this->load->model('tool_type_model');
-		$data['tooltype'] = $this->tool_type_model->query();
+		$data['tooltype'] = $this->tool_type_model->query_array();
 		print_r($data['tooltype']);
 		//$data['tools'] = str_replace($data['tooltype']['id'], $data['tooltype']['type_name'], $data['tools']['type']);
 		// 載入 view

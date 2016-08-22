@@ -14,7 +14,7 @@
           <tr>
             <td><?=$row->id?></td>
             <td><?=$row->type_name?></td>
-            <td><a href="<?=config_item('base_url');?>/index.php/Lists/modify/<?=$row->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Lists/delete/<?=$row->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
+            <td><a href="<?=config_item('base_url');?>/index.php/Tool_type/modify/<?=$row->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Tool_type/delete/<?=$row->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
