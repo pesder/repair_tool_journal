@@ -48,8 +48,9 @@ class Lists extends CI_Controller {
 		}
 	}
 
-	// 加入訂單
+	// 加入訂單 step 1
 	public $inputdate;
+	public $inputphone;
 	public function add_list()
 	{
 		// 表單驗證
@@ -68,15 +69,28 @@ class Lists extends CI_Controller {
 		else
 		{
 			// 接收表單
-			$formdata['start_date'] = $this->input->post('start_date');
-			$formdata['phone'] = $this->input->post('phone');
+			//$formdata['start_date'] = $this->input->post('start_date');
+			//$formdata['phone'] = $this->input->post('phone');
+			$this->inputdate = $this->input->post('start_date');
+			$this->inputphone = $this->input->post('phone');
 			// 新增至資料庫
-			$this->repair_list_model->add($formdata);
+			//$this->repair_list_model->query($formdata['phone']);
 
 			// 回首頁
 			redirect('/lists');
 		}
 	}
+	// 加入訂單 step 2
+	public function choose_name()
+	{
+		if (empty($this->inputphone))
+		{
+			echo "未輸入電話";
+		}
+		$data['lists_date'] = $this->inputdate;
+		$data['lists_his'] = $this->repair_list_model->query_number($this->inputphone);
+	}
+
 
 	// 修改公告
 	public function modify($id)

@@ -3,7 +3,7 @@
 <table class="table">
 <tr>
 	<td>送修日期</td>
-	<td><input type="text" id="datepicker" placeholder="選擇日期" name="start_date"/></td>
+	<td><?=form_error('start_date')?><input type="text" id="datepicker" placeholder="選擇日期" name="start_date"/></td>
 </tr>
 <tr>
 	<td>手機/電話號碼</td>

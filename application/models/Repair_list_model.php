@@ -35,6 +35,17 @@ class Repair_list_model extends CI_Model {
         		return $query->result();
         	}
         }
+       //查詢 電話
+        public function query_number($phone) 
+        {
+
+                $this->db->select('*');
+                $this->db->from('repair_list');
+                $this->db->where('phone', $phone);
+                $this->db->order_by('start_date','desc');
+                $query = $this->db->get();
+                return $query->result();
+        }
         //查詢(陣列)
         public function query_array($id = 0) 
         {
