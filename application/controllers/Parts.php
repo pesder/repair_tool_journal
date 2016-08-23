@@ -20,14 +20,14 @@ class Parts extends CI_Controller {
 		$data['parts'] = $this->parts_model->query();
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query();
-		$data['vendor'] = $this->vendor_model->query();
+		//$data['vendor'] = $this->vendor_model->query();
 		
 		// 載入 view
 		$this->load->view('header');
 		// 檢查是否存在 tool_type ，若無則顯示相關資訊
 		if(empty($data['tooltype']))
 		{
-			$this->load->view('parts_index_notype');
+			$this->load->view('tools_index_notype');
 		}
 		$this->load->view('parts_index',$data);
 		$this->load->view('footer');
@@ -39,14 +39,14 @@ class Parts extends CI_Controller {
 	{
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query();
-		$data['vendor'] = $this->vendor_model->query();
+		//$data['vendor'] = $this->vendor_model->query();
 		// $data['tooltype_list'] = $this->tool_type_model->get_array();
 		// $data['vendor_list'] = $this->vendor_model->get_array();
 
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->form_validation->set_rules('tool_name', '工具名稱', 'trim|required');
+		$this->form_validation->set_rules('p_name', '零件名稱', 'trim|required');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
@@ -58,8 +58,7 @@ class Parts extends CI_Controller {
 		{
 			// 接收表單
 			$formdata['type'] = $this->input->post('type');
-			$formdata['tool_name'] = $this->input->post('tool_name');
-			$formdata['vendor'] = $this->input->post('vendor');
+			$formdata['p_name'] = $this->input->post('p_name');
 
 			// 新增至資料庫
 			$this->parts_model->add($formdata);
@@ -74,7 +73,7 @@ class Parts extends CI_Controller {
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->form_validation->set_rules('tool_name', '類別名稱', 'trim|required');
+		$this->form_validation->set_rules('p_name', '零件名稱', 'trim|required');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
@@ -82,7 +81,7 @@ class Parts extends CI_Controller {
 			$data['parts'] = $this->parts_model->query($id);
 			// 載入種類及廠商
 			$data['tooltype'] = $this->tool_type_model->query();
-			$data['vendor'] = $this->vendor_model->query();
+			//$data['vendor'] = $this->vendor_model->query();
 			// 載入 view
 			$this->load->view('header');
 			$this->load->view('parts_modify',$data);
@@ -92,8 +91,7 @@ class Parts extends CI_Controller {
 		{
 			// 接收表單
 			$formdata['type'] = $this->input->post('type');
-			$formdata['tool_name'] = $this->input->post('tool_name');
-			$formdata['vendor'] = $this->input->post('vendor');
+			$formdata['p_name'] = $this->input->post('p_name');
 			$this->parts_model->modify($id, $formdata);
 
 			// 回首頁
