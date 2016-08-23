@@ -21,7 +21,7 @@ class vendor_model extends CI_Model {
         	{
         		$this->db->where('id', $id);
         	}
-        	$this->db->order_by('id','desc');
+        	$this->db->order_by('id','asc');
         	//$this->db->where();
         	$query = $this->db->get();
         	$date = $query->result();

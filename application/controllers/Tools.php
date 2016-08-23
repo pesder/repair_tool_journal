@@ -40,8 +40,8 @@ class Tools extends CI_Controller {
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query();
 		$data['vendor'] = $this->vendor_model->query();
-		$data['tooltype_list'] = $this->tool_type_model->get_array();
-		$data['vendor_list'] = $this->vendor_model->get_array();
+		// $data['tooltype_list'] = $this->tool_type_model->get_array();
+		// $data['vendor_list'] = $this->vendor_model->get_array();
 
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
@@ -57,7 +57,10 @@ class Tools extends CI_Controller {
 		else
 		{
 			// 接收表單
-			$formdata['type_name'] = $this->input->post('type_name');
+			$formdata['type'] = $this->input->post('type');
+			$formdata['tool_name'] = $this->input->post('tool_name');
+			$formdata['vendor'] = $this->input->post('vendor');
+
 			// 新增至資料庫
 			$this->tools_model->add($formdata);
 
@@ -71,21 +74,26 @@ class Tools extends CI_Controller {
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->form_validation->set_rules('type_name', '類別名稱', 'trim|required');
+		$this->form_validation->set_rules('tool_name', '類別名稱', 'trim|required');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
 			// $data['id'] = $id;
-			$data['Tools'] = $this->tools_model->query($id);
+			$data['tools'] = $this->tools_model->query($id);
+			// 載入種類及廠商
+			$data['tooltype'] = $this->tool_type_model->query();
+			$data['vendor'] = $this->vendor_model->query();
 			// 載入 view
 			$this->load->view('header');
-			$this->load->view('Tools_modify',$data);
+			$this->load->view('tools_modify',$data);
 			$this->load->view('footer');
 		}
 		else
 		{
 			// 接收表單
-			$formdata['type_name'] = $this->input->post('type_name');
+			$formdata['type'] = $this->input->post('type');
+			$formdata['tool_name'] = $this->input->post('tool_name');
+			$formdata['vendor'] = $this->input->post('vendor');
 			$this->tools_model->modify($id, $formdata);
 
 			// 回首頁
