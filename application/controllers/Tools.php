@@ -4,27 +4,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Tools extends CI_Controller {
 
 	// 用於查詢 tool_type 資料表的陣列
-	private $tooltype;
-	private $vendor;
+	
 	public function __construct()
 		{
 			parent::__construct();
 			// 載入列表 model
 			$this->load->model('tools_model');
-			// 載入 tool_type 內容並存入陣列
 			$this->load->model('tool_type_model');
-			$this->tooltype = $this->tool_type_model->query();
 			$this->load->model('vendor_model');
-			$this->vendor = $this->vendor_model->query();
+
         }
 
 	public function index()
 	{
-		$data['tools'] = $this->tools_model->query_array();
-		$this->load->model('tool_type_model');
-		$data['tooltype'] = $this->tool_type_model->query_array();
-		print_r($data['tooltype']);
-		//$data['tools'] = str_replace($data['tooltype']['id'], $data['tooltype']['type_name'], $data['tools']['type']);
+		$data['tools'] = $this->tools_model->query();
+		// 載入種類及廠商
+		$data['tooltype'] = $this->tool_type_model->query();
+		$data['vendor'] = $this->vendor_model->query();
+		
 		// 載入 view
 		$this->load->view('header');
 		// 檢查是否存在 tool_type ，若無則顯示相關資訊
@@ -36,19 +33,25 @@ class Tools extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	// 新增類型
+	// 新增工具
 	public function add()
 
 	{
+		// 載入種類及廠商
+		$data['tooltype'] = $this->tool_type_model->query();
+		$data['vendor'] = $this->vendor_model->query();
+		$data['tooltype_list'] = $this->tool_type_model->get_array();
+		$data['vendor_list'] = $this->vendor_model->get_array();
+
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->form_validation->set_rules('type_name', '類別名稱', 'trim|required');
+		$this->form_validation->set_rules('tool_name', '工具名稱', 'trim|required');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
 		$this->load->view('header');
-		$this->load->view('Tools_add');
+		$this->load->view('tools_add', $data);
 		$this->load->view('footer');
 		}
 		else

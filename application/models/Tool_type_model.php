@@ -60,6 +60,48 @@ class tool_type_model extends CI_Model {
                 }
         }
 
+        //查詢(回傳陣列)
+        public function get_array($id = 0) 
+        {
+
+                $this->db->select('*');
+                $this->db->from('tool_type');
+                if ($id > 0) 
+                {
+                        $this->db->where('id', $id);
+                }
+                $this->db->order_by('id','desc');
+                //$this->db->where();
+                $query = $this->db->get();
+                
+                // 回傳
+                if ($id > 0)
+                {
+                        foreach ($query->row_array() as $row) 
+                        {
+                                $return[$row['id']] = $row['type_name'];
+                        }
+                        return $return;
+                }
+                else
+                {
+                        foreach ($query->result_array() as $row) 
+                        {
+                                $return[$row['id']] = $row['type_name'];
+                        }
+                        if (empty($return))
+                        {
+                                $return = array();
+                                $return[''] = "沒有資料";
+                                return $return;
+                        }
+                        else
+                        {
+                              return $return;  
+                        }
+                }
+        }
+
         //新增
         public function add($data)
         {
