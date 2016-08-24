@@ -1,6 +1,6 @@
 <h1>新增工具</h1>
 <?=form_open('Repair_tools/add_tool');?>
- <h2>維修單編號：<?=$list_id?></h2>
+ <h2>維修單編號：<?=$lists_id?></h2>
 <table>
 	<tr>
 		<td>類別名稱</td>
@@ -15,7 +15,7 @@
 		<tr>
 			<td></td>
 			<td><div class="radio-inline">
-				<?=form_radio('tool_number', $row->id, FALSE);?>
+				<?=form_radio('tool_id', $row->id, FALSE);?>
 				<?=form_label($row->tool_name, 'tname');?>
 			</div></td>
 		</tr>

@@ -137,9 +137,9 @@ class Lists extends CI_Controller {
 		if($this->form_validation->run() == FALSE) 
 		{
 			// $data['id'] = $id;
-			$data['lists_id'] = $this->repair_list_model->query($id);
+			$data['lists_id'] = $id;
 			$data['tooltype'] = $this->tool_type_model->query();
-			$data['lists_tools'] = $this->repair_list_model->query($id);
+			$data['lists_tools'] = $this->repair_tools_model->query_bylist($id);
 			// 載入 view
 			$this->load->view('header');
 			$this->load->view('lists_modify',$data);

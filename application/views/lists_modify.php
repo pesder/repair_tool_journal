@@ -1,5 +1,15 @@
 <h1>修改維修單</h1>
-<?=form_open('Lists/modify/' . $lists_id->id)?>
+<?=form_open('Lists/modify/' . $lists_id)?>
+<?php
+    // 取出工具種類代號轉換用字串陣列
+      $orig_toolid;
+      $rep_toolid;
+     for ($i =0; $i < count($tooltype); $i++)
+    {
+      $orig_typeid[$i] = $tooltype[$i]->id;
+      $rep_typeid[$i] = $tooltype[$i]->type_name;
+    }
+?>
 <h2>維修單基本資料</h2>
 <table class="table">
 	<tr>
@@ -24,7 +34,11 @@
 <?=form_submit('send', '送出')?>
 <?=form_reset('reset', '取消')?>
 <?php foreach ($tooltype as $row) : ?>
-	<a href="<?=config_item('base_url');?>/index.php/Repair_tools/add_tool/<?=$lists_id->id?>/<?=$row->id?>" class="btn btn-primary">新增｛<?=$row->type_name?>｝</a>
+	<a href="<?=config_item('base_url');?>/index.php/Repair_tools/add_tool/<?=$lists_id?>/<?=$row->id?>" class="btn btn-primary">新增｛<?=$row->type_name?>｝</a>
 <?php endforeach; ?>
-
+<table class="table">
+	<?php foreach ($lists_tools as $row) : ?>
+		
+	<?php endforeach; ?>
+</table>
 <?=form_close()?>

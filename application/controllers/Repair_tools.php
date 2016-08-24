@@ -22,7 +22,7 @@ class Repair_tools extends CI_Controller {
 	}
 
 	// 新增工具
-	public function add_tool($list_id, $tooltype_id)
+	public function add_tool($lists_id, $tooltype_id)
 
 	{
 		// 載入種類及廠商
@@ -31,7 +31,7 @@ class Repair_tools extends CI_Controller {
 		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
 		// $data['tooltype_list'] = $this->tool_type_model->get_array();
 		// $data['vendor_list'] = $this->vendor_model->get_array();
-		$data['list_id'] = $list_id;
+		$data['lists_id'] = $lists_id;
 		$data['type_id'] = $tooltype_id;
 
 		// 表單驗證
@@ -48,15 +48,21 @@ class Repair_tools extends CI_Controller {
 		else
 		{
 			// 接收表單
-			$formdata['type'] = $this->input->post('type');
-			$formdata['tool_name'] = $this->input->post('tool_name');
-			$formdata['vendor'] = $this->input->post('vendor');
+			$formdata['list_id'] = $lists_id;
+			//$formdata['tool_type'] = $tooltype_id;
+			$formdata['tool_number'] = $this->input->post('tool_number');
+			if(empty($this->input->post('tool_id'))
+			{
+				
+			}
+			
 
 			// 新增至資料庫
 			$this->repair_tools_model->add($formdata);
 
 			// 回首頁
-			redirect('/Repair_tools');
+			$home = '/Lists/modify/' . $lists_id;
+			redirect($home);
 		}
 	}
 	// 修改類型
