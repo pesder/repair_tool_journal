@@ -72,31 +72,27 @@ class Lists extends CI_Controller {
 			// 接收表單
 			$formdata['start_date'] = $this->input->post('start_date');
 			$formdata['phone'] = $this->input->post('phone');
+			$input_data = array (
+				's_date' => $formdata['start_date'],
+				's_phone' => $formdata['phone']);
+			$this->session->set_userdata($input_data);
 	
-			// 新增至資料庫
-			//$this->repair_list_model->query($formdata['phone']);
-			$list = $this->repair_list_model->add_r($formdata);
-			$list = '/lists/choose_name/' . $list;
-			// 回首頁
-			redirect($list);
+
+			redirect('/lists/choose_name');
 		}
 	}
 	// 加入訂單 step 2
-	public function choose_name($id)
+	public function choose_name()
 	{
 
-
-		//$data['lists_date'] = $this->inputdate;
-		//$data['lists_phone'] = $this->inputphone;
-		$data['lists_id'] = $this->repair_list_model->query($id);
-		$data['lists_date'] = $data['lists_id']->start_date;
-		$data['lists_phone'] = $data['lists_id']->phone;
+		$data['lists_date'] = $this->session->s_date;
+		$data['lists_phone'] = $this->session->s_phone;
 		$data['lists_his'] = $this->repair_list_model->query_number($data['lists_phone']);
 			$this->load->view('header');
 			$this->load->view('lists_choose_name',$data);
 			$this->load->view('footer');
 		
-		redirect('/lists');
+		//redirect('/lists');
 	}
 
 
