@@ -130,11 +130,16 @@ class Lists extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 		$this->form_validation->set_rules('start_date', '送修日期', 'trim|required');
 		$this->form_validation->set_rules('phone', '手機號碼', 'trim|required');
+		// 載入工具種類
+		$this->load->model('tool_type_model');
+		$this->load->model('repair_tools_model');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
 			// $data['id'] = $id;
 			$data['lists_id'] = $this->repair_list_model->query($id);
+			$data['tooltype'] = $this->tool_type_model->query();
+			$data['lists_tools'] = $this->repair_list_model->query($id);
 			// 載入 view
 			$this->load->view('header');
 			$this->load->view('lists_modify',$data);
