@@ -46,6 +46,7 @@ class Repair_list_model extends CI_Model {
                 $query = $this->db->get();
                 return $query->result();
         }
+
         //查詢(陣列)
         public function query_array($id = 0) 
         {
@@ -77,7 +78,12 @@ class Repair_list_model extends CI_Model {
         	$this->db->insert('repair_list', $data);
         	// return $this->db->insert_id();
         }
-
+        //新增 & 回傳
+        public function add_r($data)
+        {
+            $this->db->insert('repair_list', $data);
+            return $this->db->insert_id();
+        }
         // 修改
         public function modify($id, $data)
         {

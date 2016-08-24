@@ -6,6 +6,7 @@ class Lists extends CI_Controller {
 	public function __construct()
 		{
 			parent::__construct();
+			$this->load->library('session');
 			// 載入列表 model
 			$this->load->model('repair_list_model');
         }
@@ -69,26 +70,33 @@ class Lists extends CI_Controller {
 		else
 		{
 			// 接收表單
-			//$formdata['start_date'] = $this->input->post('start_date');
-			//$formdata['phone'] = $this->input->post('phone');
-			$this->inputdate = $this->input->post('start_date');
-			$this->inputphone = $this->input->post('phone');
+			$formdata['start_date'] = $this->input->post('start_date');
+			$formdata['phone'] = $this->input->post('phone');
+	
 			// 新增至資料庫
 			//$this->repair_list_model->query($formdata['phone']);
-
+			$list = $this->repair_list_model->add_r($formdata);
+			$list = '/lists/choose_name/' . $list;
 			// 回首頁
-			redirect('/lists');
+			redirect($list);
 		}
 	}
 	// 加入訂單 step 2
-	public function choose_name()
+	public function choose_name($id)
 	{
-		if (empty($this->inputphone))
-		{
-			echo "未輸入電話";
-		}
-		$data['lists_date'] = $this->inputdate;
-		$data['lists_his'] = $this->repair_list_model->query_number($this->inputphone);
+
+
+		//$data['lists_date'] = $this->inputdate;
+		//$data['lists_phone'] = $this->inputphone;
+		$data['lists_id'] = $this->repair_list_model->query($id);
+		$data['lists_date'] = $data['lists_id']->start_date;
+		$data['lists_phone'] = $data['lists_id']->phone;
+		$data['lists_his'] = $this->repair_list_model->query_number($data['lists_phone']);
+			$this->load->view('header');
+			$this->load->view('lists_choose_name',$data);
+			$this->load->view('footer');
+		
+		redirect('/lists');
 	}
 
 
