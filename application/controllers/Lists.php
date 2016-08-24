@@ -84,15 +84,41 @@ class Lists extends CI_Controller {
 	// 加入訂單 step 2
 	public function choose_name()
 	{
-
+		// 表單驗證
+		$this->form_validation->set_message('required','{field}未填');
+		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+		$this->form_validation->set_rules('start_date', '送修日期', 'trim|required');
+		$this->form_validation->set_rules('phone', '手機號碼', 'trim|required');
 		$data['lists_date'] = $this->session->s_date;
 		$data['lists_phone'] = $this->session->s_phone;
-		$data['lists_his'] = $this->repair_list_model->query_number($data['lists_phone']);
+		$data['lists_his'] = $this->repair_list_model->queryby_number($data['lists_phone']);
+		// 表單判斷
+		if($this->form_validation->run() == FALSE) 
+		{
+		// 載入 view
 			$this->load->view('header');
 			$this->load->view('lists_choose_name',$data);
 			$this->load->view('footer');
-		
-		//redirect('/lists');
+		}
+		else
+		{
+		// 接收表單
+		$formdata['start_date'] = $data['lists_date'];
+		$formdata['phone'] = $data['lists_phone'];
+		if(empty($this->input->post('customer_name_old')))
+		{
+
+			$formdata['customer_name'] = $this->input->post('customer_name');
+			
+		}
+		else
+		{
+			$formdata['customer_name'] = $this->input->post('customer_name_old');
+		}
+		// 新增至資料庫
+			$this->repair_list_model->add($formdata);
+		redirect('/lists');
+		}
 	}
 
 

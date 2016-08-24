@@ -8,11 +8,18 @@
 <table class="table">
 <tr>
 	<td>送修日期</td>
-	<td><?=$lists_date?></td>
+	<td>
+		<?=form_error('start_date')?>
+		<?php $start_date = (validation_errors() != '') ? set_value('start_date') : $lists_date; ?>
+		<?=form_input('start_date', $start_date)?>
+	</td>
 </tr>
 <tr>
 	<td>手機/電話號碼</td>
-	<td><?=$lists_phone?></td>
+	<td>
+		<?=form_error('phone')?>
+		<?php $phone = (validation_errors() != '') ? set_value('phone') : $lists_phone; ?>
+		<?=form_input('phone', $phone)?></td>
 </tr>
 <tr>
 	<td>客戶姓名</td>
@@ -40,7 +47,7 @@
 </tr>
 <?php foreach ($lists_his as $row): ?>
 <tr>
-	<td><?=form_radio('customer_name_old', $row->id, FALSE);?></td>
+	<td><?=form_radio('customer_name_old', $row->customer_name, FALSE);?></td>
 	<td><?=$row->start_date;?></td>
 	<td><?=$row->phone;?></td>
 	<td><?=$row->customer_name;?></td>
