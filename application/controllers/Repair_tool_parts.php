@@ -30,6 +30,7 @@ class Repair_tool_parts extends CI_Controller {
 		$data['tooltype'] = $this->tool_type_model->query($tooltype_id);
 		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
 		$data['part_list'] = $this->parts_model->query_bytype($tooltype_id);
+		$data['repair_list'] = $this->repair_tools_model->query($lists_id);
 		$data['lists_id'] = $lists_id;
 		$data['type_id'] = $tooltype_id;
 
