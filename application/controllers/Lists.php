@@ -91,7 +91,7 @@ class Lists extends CI_Controller {
 		$this->form_validation->set_rules('phone', '手機號碼', 'trim|required');
 		$data['lists_date'] = $this->session->s_date;
 		$data['lists_phone'] = $this->session->s_phone;
-		$data['lists_his'] = $this->repair_list_model->queryby_number($data['lists_phone']);
+		$data['lists_his'] = $this->repair_list_model->query_bynumber($data['lists_phone']);
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
@@ -133,13 +133,18 @@ class Lists extends CI_Controller {
 		// 載入工具種類
 		$this->load->model('tool_type_model');
 		$this->load->model('repair_tools_model');
+		$this->load->model('vendor_model');
+		$this->load->model('tools_model');
+		
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
 			// $data['id'] = $id;
-			$data['lists_id'] = $id;
+			$data['lists_id'] = $this->repair_list_model->query($id);
 			$data['tooltype'] = $this->tool_type_model->query();
 			$data['lists_tools'] = $this->repair_tools_model->query_bylist($id);
+			$data['vendor'] = $this->vendor_model->query();
+			$data['toollist'] = $this->tools_model->query();
 			// 載入 view
 			$this->load->view('header');
 			$this->load->view('lists_modify',$data);

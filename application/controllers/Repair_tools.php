@@ -23,12 +23,12 @@ class Repair_tools extends CI_Controller {
 
 	// 新增工具
 	public function add_tool($lists_id, $tooltype_id)
-
 	{
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query($tooltype_id);
 		$data['vendor'] = $this->vendor_model->query();
 		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
+		
 		// $data['tooltype_list'] = $this->tool_type_model->get_array();
 		// $data['vendor_list'] = $this->vendor_model->get_array();
 		$data['lists_id'] = $lists_id;
@@ -51,12 +51,21 @@ class Repair_tools extends CI_Controller {
 			$formdata['list_id'] = $lists_id;
 			//$formdata['tool_type'] = $tooltype_id;
 			$formdata['tool_number'] = $this->input->post('tool_number');
-			if(empty($this->input->post('tool_id'))
+			$formdata['type_id'] = $tooltype_id;
+			if(empty($this->input->post('tool_id')))
 			{
-				
+				$tooladd['type'] = $tooltype_id;
+				$tooladd['tool_name'] = $this->input->post('tool_name_new');
+				$tooladd['vendor'] = $this->input->post('vendor');
+				$newid = $this->tools_model->add_r($tooladd);
+				$formdata['tool_id'] = $newid;
+			}
+			else
+			{
+				$formdata['tool_id'] = $this->input->post('tool_id');
+
 			}
 			
-
 			// 新增至資料庫
 			$this->repair_tools_model->add($formdata);
 

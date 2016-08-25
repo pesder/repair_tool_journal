@@ -36,28 +36,16 @@ class tools_model extends CI_Model {
         	}
         }
         //查詢某類工具
-        public function query_bytype($typeid = 0) 
+        public function query_bytype($typeid) 
         {
 
             $this->db->select('*');
             $this->db->from('tools');
-            if ($id > 0) 
-            {
-                $this->db->where('type', $typeid);
-            }
+            $this->db->where('type', $typeid);
             $this->db->order_by('id','desc');
             //$this->db->where();
             $query = $this->db->get();
-            $date = $query->result();
-            // 回傳
-            if ($id > 0)
-            {
-                return $query->row();
-            }
-            else
-            {
-                return $query->result();
-            }
+            return $query->result();
         }
         //查詢(陣列)
         public function query_array($id = 0) 
@@ -89,6 +77,14 @@ class tools_model extends CI_Model {
         	$this->db->insert('tools', $data);
         	// return $this->db->insert_id();
         }
+
+        //新增 & 回傳
+        public function add_r($data)
+        {
+            $this->db->insert('tools', $data);
+            return $this->db->insert_id();
+        }
+
 
         // 修改
         public function modify($id, $data)
