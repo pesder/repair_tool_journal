@@ -35,6 +35,18 @@ class repair_tool_parts_model extends CI_Model {
         		return $query->result();
         	}
         }
+        //查詢 list
+        public function query_bylist($list) 
+        {
+
+            $this->db->select('*');
+            $this->db->from('repair_tool_parts');
+            $this->db->where('list_id', $list);
+            $this->db->order_by('id','asc');
+            //$this->db->where();
+            $query = $this->db->get();
+            return $query->result();
+        }
         //查詢(陣列)
         public function query_array($id = 0) 
         {

@@ -69,7 +69,7 @@
 			<td><?=str_replace($orig_typeid, $rep_typeid, 'P' . $trow->type_id); ?></td>
 			<td><?=str_replace($orig_toolid, $rep_toolid, 'T' . $trow->tool_id); ?></td>
 			<td><?=$trow->tool_number ?></td>
-			<td><a href="<?=config_item('base_url');?>/index.php/Repair_tools/modify/<?=$lists_id->id?>/<?=$trow->id?>/<?=$trow->type_id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tools/delete/<?=$lists_id->id?>/<?=$trow->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
+			<td><a href="<?=config_item('base_url');?>/index.php/Repair_tools/modify/<?=$lists_id->id?>/<?=$trow->id?>/<?=$trow->type_id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tools/delete/<?=$lists_id->id?>/<?=$trow->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tool_parts/add_part/<?=$lists_id->id?>/<?=$trow->id?>/<?=$trow->type_id?>" class="btn btn-primary">新增零件</a></td>
 		</tr>
 	<?php endforeach; ?>
 </table>
