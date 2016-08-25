@@ -1,13 +1,21 @@
 <h1>修改維修單</h1>
 <?=form_open('Lists/modify/' . $lists_id->id)?>
 <?php
-    // 取出工具種類代號轉換用字串陣列
+    // 取出工具代號轉換用字串陣列
       $orig_toolid;
       $rep_toolid;
      for ($i =0; $i < count($toollist); $i++)
     {
       $orig_toolid[$i] = 'T' . $toollist[$i]->id;
       $rep_toolid[$i] = $toollist[$i]->tool_name;
+    }
+    // 取出工具種類代號轉換用字串陣列
+      $orig_typeid;
+      $rep_typeid;
+     for ($i =0; $i < count($tooltype); $i++)
+    {
+      $orig_typeid[$i] = 'P' . $tooltype[$i]->id;
+      $rep_typeid[$i] = $tooltype[$i]->type_name;
     }
 ?>
 <h2>維修單基本資料</h2>
@@ -49,6 +57,7 @@
 <table class="table">
 		<tr>
 			<th>編號</th>
+			<th>種類</th>
 			<th>工具名稱</th>
 			<th>工具數量</th>
 			<th>動作</th>
@@ -57,9 +66,10 @@
 		<?php foreach ($lists_tools as $trow) : ?>
 		<tr>
 			<td><?= $trow->id ?></td>
+			<td><?=str_replace($orig_typeid, $rep_typeid, 'P' . $trow->type_id); ?></td>
 			<td><?=str_replace($orig_toolid, $rep_toolid, 'T' . $trow->tool_id); ?></td>
 			<td><?=$trow->tool_number ?></td>
-			<td><a href="<?=config_item('base_url');?>/index.php/Repair_tools/modify/<?=$trow->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tools/delete/<?=$row->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
+			<td><a href="<?=config_item('base_url');?>/index.php/Repair_tools/modify/<?=$lists_id->id?>/<?=$trow->id?>/<?=$trow->type_id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tools/delete/<?=$lists_id->id?>/<?=$trow->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
 		</tr>
 	<?php endforeach; ?>
 </table>

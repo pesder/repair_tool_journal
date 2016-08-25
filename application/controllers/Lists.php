@@ -155,6 +155,7 @@ class Lists extends CI_Controller {
 			// 接收表單
 			$formdata['start_date'] = $this->input->post('start_date');
 			$formdata['phone'] = $this->input->post('phone');
+			$formdata['customer_name'] = $this->input->post('customer_name');
 			// 修改資料庫
 			$this->repair_list_model->modify($id, $formdata);
 
