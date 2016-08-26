@@ -112,12 +112,12 @@
 			<?php $tools_status = (validation_errors() != '') ? set_value('tools_status') : $lists_id->tools_status; ?>
 			<?=form_textarea('tools_status', $tools_status)?>
 		</td>
-		<td>修理工具</td>
+		<td>修理工具<a href="<?=config_item('base_url');?>/index.php/Lists/collect_tool/<?=$lists_id->id?>" class="btn btn-primary">匯入工具描述</a></td>
 		<td>
 			<?php $tools_memo = (validation_errors() != '') ? set_value('tools_memo') : $lists_id->tools_memo; ?>
 			<?=form_textarea('tools_memo', $tools_memo)?>
 		</td>
-		<td>修理零件</td>
+		<td>修理零件<a href="<?=config_item('base_url');?>/index.php/Lists/collect_parts/<?=$lists_id->id?>" class="btn btn-primary">匯入零件描述</a></td>
 		<td>
 			<?php $parts_memo = (validation_errors() != '') ? set_value('parts_memo') : $lists_id->parts_memo; ?>
 			<?=form_textarea('parts_memo', $parts_memo)?>

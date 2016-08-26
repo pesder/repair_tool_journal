@@ -188,6 +188,7 @@ class Lists extends CI_Controller {
 		}
 	}
 
+	// 收集維修工具資料寫入列表
 	public function collect_tool($lists_id)
 	{
 		$this->load->model('tools_model');
@@ -196,19 +197,49 @@ class Lists extends CI_Controller {
 		$repair_tool = $this->repair_tools_model->query_bylist($lists_id);
 		$tools_orig = '';
 		foreach ($repair_tool as $row) {
-			$tools_orig = $tools_orig . 'T' . $row->tool_id . '+';
+			$tools_orig = $tools_orig . 'TOOL' . $row->tool_id . '、';
 		}
-		echo $tools_orig;
+		
 		// 取出工具代號轉換用字串陣列
       	$orig_tid;
       	$rep_tid;
      	for ($j =0; $j < count($alltool); $j++)
     	{
-      		$orig_tid[$j] = 'T' . $alltool[$j]->id;
+      		$orig_tid[$j] = 'TOOL' . $alltool[$j]->id;
       		$rep_tid[$j] = $alltool[$j]->tool_name;
     	}
     	$tools_after = str_replace($orig_tid, $rep_tid, $tools_orig);
-    	echo $tools_after;
+    	
+    	$data['tools_memo'] = $tools_after;
+    	$this->repair_list_model->modify($lists_id, $data);
+    	redirect ('/Lists/modify/' . $lists_id);
+	}
+
+	// 收集維修零件資料寫入列表
+	public function collect_parts($lists_id)
+	{
+		$this->load->model('parts_model');
+		$this->load->model('repair_tool_parts_model');
+		$allparts = $this->parts_model->query();
+		$repair_parts = $this->repair_tool_parts_model->query_bylist($lists_id);
+		$parts_orig = '';
+		foreach ($repair_parts as $row) {
+			$parts_orig = $parts_orig . 'PART' . $row->parts_id . '、';
+		}
+		
+		// 取出工具代號轉換用字串陣列
+      	$orig_pid;
+      	$rep_pid;
+     	for ($j =0; $j < count($allparts); $j++)
+    	{
+      		$orig_pid[$j] = 'PART' . $allparts[$j]->id;
+      		$rep_pid[$j] = $allparts[$j]->p_name;
+    	}
+    	$parrts_after = str_replace($orig_pid, $rep_pid, $parts_orig);
+    	
+    	$data['parts_memo'] = $parrts_after;
+    	$this->repair_list_model->modify($lists_id, $data);
+    	redirect ('/Lists/modify/' . $lists_id);
 	}
 }
 
