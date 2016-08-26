@@ -33,18 +33,77 @@
 		<td><?=form_error('start_date')?>
 		<?php $start_date = (validation_errors() != '') ? set_value('start_date') : $lists_id->start_date; ?>
 		<?=form_input('start_date', $start_date)?></td>
+		<td><?php
+				if ($lists_id->repaired == '0') 
+				{
+					echo form_checkbox('repaired', '0', FALSE);
+				}
+				else
+				{
+					echo form_checkbox('repaired', '1', TRUE);
+				}
+				?>
+		已完修</td>
+		<td>電話通知日期</td>
+		<td>
+				<?php $call_date = (validation_errors() != '') ? set_value('call_date') : $lists_id->call_date; ?>
+				<?=form_input('call_date', $call_date)?>
+		</td>
+
 	</tr>
 	<tr>
 		<td>手機號碼</td>
 		<td><?=form_error('phone')?>
 		<?php $phone = (validation_errors() != '') ? set_value('phone') : $lists_id->phone; ?>
 		<?=form_input('phone', $phone)?></td>
+		<td><?php
+				if ($lists_id->closed == '0') 
+				{
+					echo form_checkbox('closed', '0', FALSE);
+				}
+				else
+				{
+					echo form_checkbox('closed', '1', TRUE);
+				}
+				?>
+		已結案
+				</td>
+		<td>取回/不修理日期</td>
+		<td>
+				<?php $return_date = (validation_errors() != '') ? set_value('return_date') : $lists_id->return_date; ?>
+				<?=form_input('return_date', $return_date)?>
+		</td>
 	</tr>
 	<tr>
 		<td>客戶姓名</td>
 		<td><?=form_error('customer_name')?>
 		<?php $customer_name = (validation_errors() != '') ? set_value('customer_name') : $lists_id->customer_name; ?>
 		<?=form_input('customer_name', $customer_name)?></td>
+		<td>維修價格</td>
+		<td>		
+		<?php $price = (validation_errors() != '') ? set_value('price') : $lists_id->price; ?>
+		<?=form_input('price', $price)?></td>
+		<td></td>
+
+	</tr>
+</table>
+<table class="table">
+	<tr>
+		<td>工具狀況</td>
+		<td>
+			<?php $tools_status = (validation_errors() != '') ? set_value('tools_status') : $lists_id->tools_status; ?>
+			<?=form_textarea('tools_status', $tools_status)?>
+		</td>
+		<td>修理工具</td>
+		<td>
+			<?php $tools_memo = (validation_errors() != '') ? set_value('tools_memo') : $lists_id->tools_memo; ?>
+			<?=form_textarea('tools_memo', $tools_memo)?>
+		</td>
+		<td>修理零件</td>
+		<td>
+			<?php $parts_memo = (validation_errors() != '') ? set_value('parts_memo') : $lists_id->parts_memo; ?>
+			<?=form_textarea('parts_memo', $parts_memo)?>
+		</td>
 	</tr>
 </table>
 <?=form_submit('send', '送出')?>
