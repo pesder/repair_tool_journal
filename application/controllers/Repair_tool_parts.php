@@ -14,7 +14,7 @@ class Repair_tool_parts extends CI_Controller {
 			$this->load->model('vendor_model');
 			$this->load->model('tools_model');
 			$this->load->model('parts_model');
-			$this->load->model('repair_tool_parts_model')
+			$this->load->model('repair_tool_parts_model');
 
         }
 
@@ -33,6 +33,7 @@ class Repair_tool_parts extends CI_Controller {
 		$data['repair_list'] = $this->repair_tools_model->query($lists_id);
 		$data['lists_id'] = $lists_id;
 		$data['type_id'] = $tooltype_id;
+		$data['work_list'] = $workid;
 
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
@@ -42,35 +43,37 @@ class Repair_tool_parts extends CI_Controller {
 		if($this->form_validation->run() == FALSE) 
 		{
 		$this->load->view('header');
-		$this->load->view('repair_tools_add_tool', $data);
+		$this->load->view('repair_tool_parts_add_part', $data);
 		$this->load->view('footer');
 		}
 		else
 		{
 			// 接收表單
-			$formdata['list_id'] = $lists_id;
+			$formdata['list_id'] = $workid;
 			//$formdata['tool_type'] = $tooltype_id;
-			$formdata['tool_number'] = $this->input->post('tool_number');
+			$formdata['price'] = $this->input->post('price');
 			$formdata['type_id'] = $tooltype_id;
-			if(empty($this->input->post('tool_id')))
+			$formdata['repair_tools_id'] = $lists_id;
+			if(empty($this->input->post('part_name_new')))
 			{
-				$tooladd['type'] = $tooltype_id;
-				$tooladd['tool_name'] = $this->input->post('tool_name_new');
-				
-				$newid = $this->tools_model->add_r($tooladd);
-				$formdata['tool_id'] = $newid;
+				$formdata['parts_id'] = $this->input->post('parts_id');
+
 			}
 			else
 			{
-				$formdata['tool_id'] = $this->input->post('tool_id');
+				$partadd['type'] = $tooltype_id;
+				$partadd['p_name'] = $this->input->post('part_name_new');
+				
+				$newid = $this->parts_model->add_r($partadd);
+				$formdata['parts_id'] = $newid;
 
 			}
 			
 			// 新增至資料庫
-			$this->repair_tools_model->add($formdata);
+			$this->repair_tool_parts_model->add($formdata);
 
 			// 回首頁
-			$home = '/Lists/modify/' . $lists_id;
+			$home = '/Lists/modify/' . $workid;
 			redirect($home);
 		}
 	}
@@ -79,26 +82,23 @@ class Repair_tool_parts extends CI_Controller {
 	{
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query($tooltype_id);
-		$data['vendor'] = $this->vendor_model->query();
 		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
-		
-		// $data['tooltype_list'] = $this->tool_type_model->get_array();
-		// $data['vendor_list'] = $this->vendor_model->get_array();
+		$data['part_list'] = $this->parts_model->query_bytype($tooltype_id);
 		$data['workid'] = $work_id;
 		$data['lists_id'] = $lists_id;
 		$data['type_id'] = $tooltype_id;
-		$data['repair_list'] = $this->repair_tools_model->query($lists_id);
+		$data['repair_list'] = $this->repair_tool_parts_model->query($lists_id);
 
 		// 表單驗證
 		$this->form_validation->set_message('required','{field}未填');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->form_validation->set_rules('tool_number', '工具數量', 'trim|required');
+		$this->form_validation->set_rules('price', '價格', 'trim|required');
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
 			// 載入 view
 			$this->load->view('header');
-			$this->load->view('repair_tools_modify',$data);
+			$this->load->view('repair_tool_parts_modify',$data);
 			$this->load->view('footer');
 		}
 		else
@@ -111,22 +111,25 @@ class Repair_tool_parts extends CI_Controller {
 			// 接收表單
 			//$formdata['list_id'] = $lists_id;
 			//$formdata['tool_type'] = $tooltype_id;
-			$formdata['tool_number'] = $this->input->post('tool_number');
+			$formdata['list_id'] = $work_id;
+			$formdata['price'] = $this->input->post('price');
 			$formdata['type_id'] = $tooltype_id;
-			if(empty($this->input->post('tool_id')))
+			//$formdata['repair_tools_id'] = $this->input->post('repair_tools_id');
+			if(empty($this->input->post('part_name_new')))
 			{
-				$tooladd['type'] = $tooltype_id;
-				$tooladd['tool_name'] = $this->input->post('tool_name_new');
-				$tooladd['vendor'] = $this->input->post('vendor');
-				$newid = $this->tools_model->add_r($tooladd);
-				$formdata['tool_id'] = $newid;
+				$formdata['parts_id'] = $this->input->post('parts_id');
+				
 			}
 			else
 			{
-				$formdata['tool_id'] = $this->input->post('tool_id');
+				$partadd['type'] = $tooltype_id;
+				$partadd['p_name'] = $this->input->post('part_name_new');
+				
+				$newid = $this->parts_model->add_r($partadd);
+				$formdata['parts_id'] = $newid;
 
 			}
-			$this->repair_tools_model->modify($lists_id, $formdata);
+			$this->repair_tool_parts_model->modify($lists_id, $formdata);
 
 			// 回首頁
 			$home = '/Lists/modify/' . $work_id;
@@ -139,7 +142,7 @@ class Repair_tool_parts extends CI_Controller {
 	{
 		if ($id > 0)
 		{
-			$this->repair_tools_model->del($id);
+			$this->repair_tool_parts_model->del($id);
 
 			// 回首頁
 			$home = '/Lists/modify/' . $work_id;

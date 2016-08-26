@@ -52,7 +52,7 @@ class Repair_tools extends CI_Controller {
 			//$formdata['tool_type'] = $tooltype_id;
 			$formdata['tool_number'] = $this->input->post('tool_number');
 			$formdata['type_id'] = $tooltype_id;
-			if(empty($this->input->post('tool_id')))
+		/*	if(empty($this->input->post('tool_id')))
 			{
 				$tooladd['type'] = $tooltype_id;
 				$tooladd['tool_name'] = $this->input->post('tool_name_new');
@@ -65,7 +65,21 @@ class Repair_tools extends CI_Controller {
 				$formdata['tool_id'] = $this->input->post('tool_id');
 
 			}
-			
+		*/
+			if(empty($this->input->post('tool_name_new')))
+			{
+				$formdata['tool_id'] = $this->input->post('tool_id');
+
+			}
+			else
+			{
+				$tooladd['type'] = $tooltype_id;
+				$tooladd['tool_name'] = $this->input->post('tool_name_new');
+				$tooladd['vendor'] = $this->input->post('vendor');
+				$newid = $this->tools_model->add_r($tooladd);
+				$formdata['tool_id'] = $newid;
+
+			}
 			// 新增至資料庫
 			$this->repair_tools_model->add($formdata);
 
@@ -113,17 +127,19 @@ class Repair_tools extends CI_Controller {
 			//$formdata['tool_type'] = $tooltype_id;
 			$formdata['tool_number'] = $this->input->post('tool_number');
 			$formdata['type_id'] = $tooltype_id;
-			if(empty($this->input->post('tool_id')))
+			if(empty($this->input->post('tool_name_new')))
+			//if(empty($this->input->post('tool_id')))
+			{
+				$formdata['tool_id'] = $this->input->post('tool_id');
+				
+			}
+			else
 			{
 				$tooladd['type'] = $tooltype_id;
 				$tooladd['tool_name'] = $this->input->post('tool_name_new');
 				$tooladd['vendor'] = $this->input->post('vendor');
 				$newid = $this->tools_model->add_r($tooladd);
 				$formdata['tool_id'] = $newid;
-			}
-			else
-			{
-				$formdata['tool_id'] = $this->input->post('tool_id');
 
 			}
 			$this->repair_tools_model->modify($lists_id, $formdata);

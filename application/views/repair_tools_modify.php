@@ -48,6 +48,7 @@
 	<tr>
 		<td>新增工具名稱</td>
 		<td>
+		<?=form_radio('tool_id', '', FALSE);?>
 		<?=form_input('tool_name_new', set_value('tool_name_new'))?></td>
 		<td>廠牌</td>
 		<td>			

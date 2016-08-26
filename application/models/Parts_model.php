@@ -78,7 +78,12 @@ class parts_model extends CI_Model {
         	$this->db->insert('parts', $data);
         	// return $this->db->insert_id();
         }
-
+        //新增 & 回傳
+        public function add_r($data)
+        {
+            $this->db->insert('parts', $data);
+            return $this->db->insert_id();
+        }
         // 修改
         public function modify($id, $data)
         {

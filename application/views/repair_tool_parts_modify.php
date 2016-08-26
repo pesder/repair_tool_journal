@@ -1,5 +1,5 @@
-<h1>新增零件</h1>
-<?=form_open('Repair_tool_parts/add_part/' . $work_list . '/' . $lists_id . '/' . $tooltype->id);?>
+<h1>修改零件</h1>
+<?=form_open('Repair_tool_parts/modify/' . $workid . '/' . $lists_id . '/' . $tooltype->id);?>
 <?php
         // 取出工具代號轉換用字串陣列
       $orig_tid;
@@ -9,15 +9,16 @@
       $orig_tid[$j] = 'T' . $tool_list[$j]->id;
       $rep_tid[$j] = $tool_list[$j]->tool_name;
     }
+
 ?>
- <h2>工具編號：<?=$lists_id?></h2>
+ <h2>工具編號：<?=$repair_list->repair_tools_id?></h2>
 <table>
 	<tr>
 		<td>類別名稱</td>
 		<td><?=$tooltype->type_name;?>
 		</td>
-		<td>工具名稱</td>
-		<td><?=str_replace($orig_tid, $rep_tid, 'T' . $repair_list->tool_id);?></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>零件名稱</td>
@@ -29,7 +30,16 @@
 		<tr>
 			<td></td>
 			<td><div class="radio-inline">
-				<?=form_radio('parts_id', $row->id, FALSE);?>
+				<?php
+				if ($row->id == $repair_list->parts_id) 
+				{
+					echo form_radio('parts_id', $row->id, TRUE);
+				}
+				else
+				{
+					echo form_radio('parts_id', $row->id, FALSE);
+				}
+				?>
 				<?=form_label($row->p_name, 'pname');?>
 			</div></td>
 			<td></td>
@@ -48,7 +58,8 @@
 	<tr>
 		<td>價格</td>
 		<td><?=form_error('price')?>
-		<?=form_input('price', set_value('price', 0))?></td>
+		<?php $price = (validation_errors() != '') ? set_value('price') : $repair_list->price; ?>
+		<?=form_input('price', set_value('price', $price))?></td>
 	</tr>
 </table>
 <?=form_submit('send', '送出')?>

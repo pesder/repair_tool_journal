@@ -135,6 +135,7 @@ class Lists extends CI_Controller {
 		$this->load->model('repair_tools_model');
 		$this->load->model('vendor_model');
 		$this->load->model('tools_model');
+		$this->load->model('parts_model');
 		$this->load->model('repair_tool_parts_model');
 		
 		// 表單判斷
@@ -147,6 +148,7 @@ class Lists extends CI_Controller {
 			$data['lists_parts'] = $this->repair_tool_parts_model->query_bylist($id);
 			$data['vendor'] = $this->vendor_model->query();
 			$data['toollist'] = $this->tools_model->query();
+			$data['partlist'] = $this->parts_model->query();
 			// 載入 view
 			$this->load->view('header');
 			$this->load->view('lists_modify',$data);
