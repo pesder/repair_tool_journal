@@ -150,7 +150,7 @@ class Lists extends CI_Controller {
 			$data['toollist'] = $this->tools_model->query();
 			$data['partlist'] = $this->parts_model->query();
 			// 載入 view
-			$this->load->view('header');
+			$this->load->view('header-jquery');
 			$this->load->view('lists_modify',$data);
 			$this->load->view('footer');
 		}
@@ -160,6 +160,14 @@ class Lists extends CI_Controller {
 			$formdata['start_date'] = $this->input->post('start_date');
 			$formdata['phone'] = $this->input->post('phone');
 			$formdata['customer_name'] = $this->input->post('customer_name');
+			$formdata['tools_status'] = $this->input->post('tools_status');
+			$formdata['tools_memo'] = $this->input->post('tools_memo');
+			$formdata['parts_memo'] = $this->input->post('parts_memo');
+			$formdata['closed'] = $this->input->post('closed');
+			$formdata['repaired'] = $this->input->post('repaired');
+			$formdata['call_date'] = $this->input->post('call_date');
+			$formdata['return_date'] = $this->input->post('return_date');
+			$formdata['price'] = $this->input->post('price');
 			// 修改資料庫
 			$this->repair_list_model->modify($id, $formdata);
 
@@ -178,6 +186,29 @@ class Lists extends CI_Controller {
 			// 回首頁
 			redirect('/lists');
 		}
+	}
+
+	public function collect_tool($lists_id)
+	{
+		$this->load->model('tools_model');
+		$this->load->model('repair_tools_model');
+		$alltool = $this->tools_model->query();
+		$repair_tool = $this->repair_tools_model->query_bylist($lists_id);
+		$tools_orig = '';
+		foreach ($repair_tool as $row) {
+			$tools_orig = $tools_orig . 'T' . $row->tool_id . '+';
+		}
+		echo $tools_orig;
+		// 取出工具代號轉換用字串陣列
+      	$orig_tid;
+      	$rep_tid;
+     	for ($j =0; $j < count($alltool); $j++)
+    	{
+      		$orig_tid[$j] = 'T' . $alltool[$j]->id;
+      		$rep_tid[$j] = $alltool[$j]->tool_name;
+    	}
+    	$tools_after = str_replace($orig_tid, $rep_tid, $tools_orig);
+    	echo $tools_after;
 	}
 }
 

@@ -32,7 +32,13 @@
 		<td>送修日期</td>
 		<td><?=form_error('start_date')?>
 		<?php $start_date = (validation_errors() != '') ? set_value('start_date') : $lists_id->start_date; ?>
-		<?=form_input('start_date', $start_date)?></td>
+		<?php
+		$s_data = array (
+			'name'	=> 'start_date',
+			'id'	=> 'datepicker',
+			'value'	=>	$start_date);
+		echo form_input($s_data);
+			?></td>
 		<td><?php
 				if ($lists_id->repaired == '0') 
 				{
@@ -47,7 +53,13 @@
 		<td>電話通知日期</td>
 		<td>
 				<?php $call_date = (validation_errors() != '') ? set_value('call_date') : $lists_id->call_date; ?>
-				<?=form_input('call_date', $call_date)?>
+		<?php
+		$c_data = array (
+			'name'	=> 'call_date',
+			'id'	=> 'datepicker2',
+			'value'	=>	$call_date);
+		echo form_input($c_data);
+			?>
 		</td>
 
 	</tr>
@@ -71,7 +83,13 @@
 		<td>取回/不修理日期</td>
 		<td>
 				<?php $return_date = (validation_errors() != '') ? set_value('return_date') : $lists_id->return_date; ?>
-				<?=form_input('return_date', $return_date)?>
+		<?php
+		$r_data = array (
+			'name'	=> 'return_date',
+			'id'	=> 'datepicker3',
+			'value'	=>	$return_date);
+		echo form_input($r_data);
+			?>	
 		</td>
 	</tr>
 	<tr>
