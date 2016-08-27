@@ -116,8 +116,8 @@ class Lists extends CI_Controller {
 			$formdata['customer_name'] = $this->input->post('customer_name_old');
 		}
 		// 新增至資料庫
-			$this->repair_list_model->add($formdata);
-		redirect('/lists');
+			$newid = $this->repair_list_model->add_r($formdata);
+		redirect('/lists/modify/' . $newid);
 		}
 	}
 

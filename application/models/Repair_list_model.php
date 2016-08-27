@@ -35,6 +35,18 @@ class Repair_list_model extends CI_Model {
         		return $query->result();
         	}
         }
+        //依條件查詢
+        public function queryby($cd1, $cd2) 
+        {
+
+            $this->db->select('*');
+            $this->db->from('repair_list');
+            $this->db->where($cd1, $cd2);
+            $this->db->order_by('start_date','desc');
+            //$this->db->where();
+            $query = $this->db->get();
+            return $query->result();
+        }
 
         //查詢 list
         public function query_bylist($id = 0) 

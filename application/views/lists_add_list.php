@@ -3,7 +3,29 @@
 <table class="table">
 <tr>
 	<td>送修日期</td>
-	<td><?=form_error('start_date')?><input type="text" id="datepicker" placeholder="選擇日期" name="start_date"/></td>
+	<td><?=form_error('start_date')?>
+	<?php
+	/*
+	if(empty($this->session->s_date))
+	{
+		$i_date = date("Y-m-d");
+	}
+	else
+	{
+		$i_date = $this->session->s_date;
+	}
+	*/
+	if (isset($_POST['start_date']))
+	{
+		echo $_POST['start_date'];
+	}
+	$date_data = array (
+		'name'	=>	'start_date',
+		'id'	=>	'datepicker',
+		'placeholder'	=> '選擇日期');
+	echo form_input($date_data);
+	?>
+	</td>
 </tr>
 <tr>
 	<td>手機/電話號碼</td>
