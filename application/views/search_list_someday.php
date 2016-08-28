@@ -1,7 +1,6 @@
-    <div class="bg-primary"><h1>工作清單：<?=$choosed?></h1></div>
-
+<h1 class="bg-info">工作清單：<?=$choosed?></h1>
     <div>
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>日期</th>
@@ -24,12 +23,12 @@
             <td><?=$row->tools_memo?></td>
             <td><?=$row->parts_memo?></td>
             <td><?=$row->price?></td>
-            <td><?=$row->call_date?></td>
-            <td><?=$row->return_date?></td>
-            <td><a href="<?=config_item('base_url');?>/index.php/Lists/modify/<?=$row->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Lists/delete/<?=$row->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
+            <td><?=str_replace('0000-00-00', 'N/A', $row->call_date)?></td>
+            <td><?=str_replace('0000-00-00', 'N/A', $row->return_date)?></td>
+            <td><a href="<?=config_item('base_url');?>/index.php/Lists/modify/<?=$row->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Lists/delete/<?=$row->id?>" class="btn btn-danger" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
       </table>
     </div>
-
+    <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>

@@ -1,7 +1,7 @@
-    <div class="bg-primary"><h1>工作清單：<?=$choosed?></h1></div>
+<h1 class="bg-info">工作清單：<?=$choosed?></h1>
   <?=form_open($form)?>
     <div>
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>選取</th>
@@ -28,7 +28,7 @@
             <td><?=$row->price?></td>
             <td><?=str_replace('0000-00-00', 'N/A', $row->call_date)?></td>
             <td><?=str_replace('0000-00-00', 'N/A', $row->return_date)?></td>
-            <td><a href="<?=config_item('base_url');?>/index.php/Lists/modify/<?=$row->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Lists/delete/<?=$row->id?>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
+            <td><a href="<?=config_item('base_url');?>/index.php/Lists/modify/<?=$row->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Lists/delete/<?=$row->id?>" class="btn btn-danger" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
@@ -40,6 +40,7 @@
       $c_data = array (
         'name'  => 'return_date',
         'id'  => 'datepicker',
+        'class' =>  'form-control',
         'value' =>  date("Y-m-d"));
     echo form_input($c_data);
       ?>
@@ -48,14 +49,10 @@
     $but1 = array (
       'name'  =>  'sent',
       'type'  =>  'submit',
-      'content' =>  '設定選取項目取回日期',
-      'class' =>  'btn btn-primary');
-    $but2 = array (
-      'name'  =>  'reset',
-      'type'  =>  'reset',
-      'content' =>  '取消',
-      'class' =>  'btn btn-primary');
+      'content' =>  '送出',
+      'class' =>  'btn btn-primary',
+      'accesskey' =>  's');
     echo form_button($but1);
-    echo form_button($but2);
-    ?>
+    ?> ｜ 
+    <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
 <?=form_close()?>

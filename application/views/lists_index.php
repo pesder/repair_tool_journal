@@ -32,4 +32,4 @@
         </tbody>
       </table>
     </div>
-
+<a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>

@@ -1,8 +1,8 @@
-<h1>修改零件</h1>
+<h1 class="bg-warning text-center">修改零件</h1>
 <?=form_open('Tools/modify/' . $parts->id)?>
-<table>
+<table class="table">
 	<tr>
-		<td>類別名稱</td>
+		<td class="text-center">類別名稱</td>
 		<td><?=form_error('type')?>
 			<?php
 			foreach ($tooltype as $row) {
@@ -26,13 +26,27 @@
 		</td>
 	</tr>
 	<tr>
-		<td>零件名稱</td>
+		<td class="text-center">零件名稱</td>
 		<td><?=form_error('p_name')?>
 		<?php $p_name = (validation_errors() != '') ? set_value('p_name') : $parts->p_name; ?>
-		<?=form_input('p_name', $p_name)?></td>
+		<?php
+		$part_data = array (
+		'name'	=>	'p_name',
+		'class'	=>	'form-control',
+		'value'	=>	$p_name);
+		echo form_input($part_data);
+		?></td>
 	</tr>
 
 </table>
-<?=form_submit('send', '送出')?>
-<?=form_reset('reset', '取消')?>
+    <?php
+    $but1 = array (
+      'name'  =>  'sent',
+      'type'  =>  'submit',
+      'content' =>  '送出',
+      'class' =>  'btn btn-primary',
+      'accesskey'	=>	's');
+    echo form_button($but1);
+    ?> ｜ <a href="<?=config_item('base_url');?>/index.php/Vendor/index/" class="btn btn-primary" accesskey="p">回零件列表</a> ｜ 
+    <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
 <?=form_close()?>
