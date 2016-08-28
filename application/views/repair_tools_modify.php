@@ -1,4 +1,4 @@
-<h1>修改維修工具</h1>
+<h1 class="bg-success">修改維修工具</h1>
 <?=form_open('Repair_tools/modify/' . $workid . '/' . $lists_id . '/' . $type_id);?>
 <?php
         // 取出廠商代號轉換用字串陣列
@@ -10,17 +10,17 @@
       $rep_vid[$j] = $vendor[$j]->v_name;
     }
 ?>
- <h2>維修工具編號：<?=$lists_id?></h2>
-<table>
+ <h2 class="bg-info">維修工具編號：<?=$lists_id?></h2>
+<table class="table">
 	<tr>
-		<td>類別名稱</td>
+		<td class="text-center">類別名稱</td>
 		<td><?=$tooltype->type_name;?>
 		</td>
 		<td></td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>工具名稱</td>
+		<td class="text-center">工具名稱</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -46,11 +46,16 @@
 		</tr>
 	<?php endforeach; ?>
 	<tr>
-		<td>新增工具名稱</td>
+		<td class="text-center">新增工具名稱</td>
 		<td>
 		<?=form_radio('tool_id', '', FALSE);?>
-		<?=form_input('tool_name_new', set_value('tool_name_new'))?></td>
-		<td>廠牌</td>
+		<?php
+			$newtool_data = array (
+			'name'	=> 'tool_name_new',
+			'class'	=>	'form-control');
+		echo form_input($newtool_data);
+		?></td>
+		<td class="text-center">廠牌</td>
 		<td>			
 		<?php
 			foreach ($vendor as $row) {
@@ -73,12 +78,26 @@
 		</td>
 	</tr>
 	<tr>
-		<td>工具數量</td>
+		<td class="text-center">工具數量</td>
 		<td><?=form_error('tool_number')?>
 		<?php $tool_number = (validation_errors() != '') ? set_value('tool_number') : $repair_list->tool_number; ?>
-		<?=form_input('tool_number', $tool_number)?></td>
+		<?php
+			$number_data = array (
+			'name'	=> 'tool_number',
+			'class'	=>	'form-control',
+			'value'	=>	$tool_number);
+		echo form_input($number_data);
+		?></td>
 	</tr>
 </table>
-<?=form_submit('send', '送出')?>
-<?=form_reset('reset', '取消')?>
+    <?php
+    $but1 = array (
+      'name'  =>  'sent',
+      'type'  =>  'submit',
+      'content' =>  '送出',
+      'class' =>  'btn btn-primary',
+      'accesskey'	=>	's');
+    echo form_button($but1);
+    ?> ｜<a href="<?=config_item('base_url');?>/index.php/Lists/modify/<?=$workid;?>" class="btn btn-primary" accesskey="h">回維修單</a>｜ <a href="<?=config_item('base_url');?>/index.php/Lists/" class="btn btn-primary" accesskey="h">回維修單列表</a>｜ 
+    <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
 <?=form_close()?>

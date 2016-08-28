@@ -175,11 +175,11 @@
       'class' =>  'btn btn-primary',
       'accesskey'	=>	's');
     echo form_button($but1);
-    ?> ｜ <a href="<?=config_item('base_url');?>/index.php/Lists/" class="btn btn-primary" accesskey="h">回維修單列表</a>｜ 
+    ?> ｜ <a href="<?=config_item('base_url');?>/index.php/Lists/" class="btn btn-primary" accesskey="l">回維修單列表</a>｜ 
     <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
     <hr>
 <?php foreach ($tooltype as $row) : ?>
-	<a href="<?=config_item('base_url');?>/index.php/Repair_tools/add_tool/<?=$lists_id->id?>/<?=$row->id?>" class="btn btn-primary">新增｛<?=$row->type_name?>｝工具</a>
+	<a href="<?=config_item('base_url');?>/index.php/Repair_tools/add_tool/<?=$lists_id->id?>/<?=$row->id?>" class="btn btn-success">新增｛<?=$row->type_name?>｝工具</a>
 <?php endforeach; ?>
 <?php
 	if (empty($lists_tools)) 

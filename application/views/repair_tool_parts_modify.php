@@ -1,4 +1,4 @@
-<h1>修改零件</h1>
+<h1  class="bg-success">修改零件</h1>
 <?=form_open('Repair_tool_parts/modify/' . $workid . '/' . $lists_id . '/' . $tooltype->id);?>
 <?php
         // 取出工具代號轉換用字串陣列
@@ -11,17 +11,17 @@
     }
 
 ?>
- <h2>工具編號：<?=$repair_list->repair_tools_id?></h2>
-<table>
+ <h2 class="bg-info">工具編號：<?=$repair_list->repair_tools_id?></h2>
+<table class="table">
 	<tr>
-		<td>類別名稱</td>
+		<td class="text-center">類別名稱</td>
 		<td><?=$tooltype->type_name;?>
 		</td>
 		<td></td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>零件名稱</td>
+		<td class="text-center">零件名稱</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -47,21 +47,40 @@
 		</tr>
 	<?php endforeach; ?>
 	<tr>
-		<td>新增零件名稱</td>
+		<td class="text-center">新增零件名稱</td>
 		<td><?=form_radio('parts_id', '', FALSE);?>
-		<?=form_input('part_name_new', set_value('part_name_new'))?></td>
+		<?php
+			$newpart_data = array (
+			'name'	=> 'part_name_new',
+			'class'	=>	'form-control');
+		echo form_input($newpart_data);
+		?></td>
 		<td></td>
 		<td>			
 
 		</td>
 	</tr>
 	<tr>
-		<td>價格</td>
+		<td class="text-center">價格</td>
 		<td><?=form_error('price')?>
 		<?php $price = (validation_errors() != '') ? set_value('price') : $repair_list->price; ?>
-		<?=form_input('price', set_value('price', $price))?></td>
+		<?php
+			$price_data = array (
+			'name'	=> 'price',
+			'class'	=>	'form-control',
+			'value'	=>	$price);
+		echo form_input($price_data);
+		?></td>
 	</tr>
 </table>
-<?=form_submit('send', '送出')?>
-<?=form_reset('reset', '取消')?>
+    <?php
+    $but1 = array (
+      'name'  =>  'sent',
+      'type'  =>  'submit',
+      'content' =>  '送出',
+      'class' =>  'btn btn-primary',
+      'accesskey'	=>	's');
+    echo form_button($but1);
+    ?>  ｜<a href="<?=config_item('base_url');?>/index.php/Lists/modify/<?=$workid;?>" class="btn btn-primary" accesskey="b">回維修單</a> ｜ <a href="<?=config_item('base_url');?>/index.php/Lists/" class="btn btn-primary" accesskey="l">回維修單列表</a>｜ 
+    <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
 <?=form_close()?>
