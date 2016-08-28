@@ -35,6 +35,17 @@ class Repair_list_model extends CI_Model {
         		return $query->result();
         	}
         }
+        //有限查詢
+        public function query_limit($limit) 
+        {
+
+            $this->db->select('*');
+            $this->db->from('repair_list');
+            $this->db->order_by('start_date','desc');
+            $this->db->limit($limit);
+            $query = $this->db->get();
+            return $query->result();
+        }
         //依條件查詢
         public function queryby($cd1, $cd2) 
         {
@@ -42,6 +53,19 @@ class Repair_list_model extends CI_Model {
             $this->db->select('*');
             $this->db->from('repair_list');
             $this->db->where($cd1, $cd2);
+            $this->db->order_by('start_date','desc');
+            //$this->db->where();
+            $query = $this->db->get();
+            return $query->result();
+        }
+        //依條件查詢 AND 版
+        public function queryby_and($cd1, $cd2, $cd3, $cd4) 
+        {
+
+            $this->db->select('*');
+            $this->db->from('repair_list');
+            $this->db->where($cd1, $cd2);
+            $this->db->where($cd3, $cd4);
             $this->db->order_by('start_date','desc');
             //$this->db->where();
             $query = $this->db->get();
@@ -108,7 +132,11 @@ class Repair_list_model extends CI_Model {
                         return $query->result_array();
                 }
         }
-
+        // 傳回最後一列
+            public function get_last()
+            {
+                return $this->db->insert_id();
+            }
         //新增
         public function add($data)
         {

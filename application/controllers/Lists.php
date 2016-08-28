@@ -13,7 +13,7 @@ class Lists extends CI_Controller {
 
 	public function index()
 	{
-		$data['lists'] = $this->repair_list_model->query();
+		$data['lists'] = $this->repair_list_model->query_limit(25);
 		// 載入 view
 		$this->load->view('header');
 		$this->load->view('lists_index',$data);
@@ -50,8 +50,6 @@ class Lists extends CI_Controller {
 	}
 
 	// 加入訂單 step 1
-	public $inputdate;
-	public $inputphone;
 	public function add_list()
 	{
 		// 表單驗證
@@ -62,9 +60,47 @@ class Lists extends CI_Controller {
 		// 表單判斷
 		if($this->form_validation->run() == FALSE) 
 		{
+			$data['s_date'] = date("Y-m-d");
 			// 載入 view
 			$this->load->view('header-jquery');
-			$this->load->view('lists_add_list');
+			$this->load->view('lists_add_list',$data);
+			$this->load->view('footer');
+		}
+		else
+		{
+			// 接收表單
+			$formdata['start_date'] = $this->input->post('start_date');
+			$formdata['phone'] = $this->input->post('phone');
+			$input_data = array (
+				's_date' => $formdata['start_date'],
+				's_phone' => $formdata['phone']);
+			$this->session->set_userdata($input_data);
+	
+
+			redirect('/lists/choose_name');
+		}
+	}
+	// 加入訂單 step 1 今天版
+	public function add_list_last()
+	{
+		// 表單驗證
+		$this->form_validation->set_message('required','{field}未填');
+		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+		$this->form_validation->set_rules('start_date', '送修日期', 'trim|required');
+		$this->form_validation->set_rules('phone', '手機號碼', 'trim|required');
+		// 表單判斷
+		if($this->form_validation->run() == FALSE) 
+		{
+			$lists_id = $this->repair_list_model->get_last();
+			$lastrow = $this->repair_list_model->query($lists_id);
+			$lastdate = '';
+			foreach ($lastrow as $row) {
+				$lastdate = $row->start_date;
+			}
+			$data['s_date'] = $lastdate;
+			// 載入 view
+			$this->load->view('header-jquery');
+			$this->load->view('lists_add_list', $data);
 			$this->load->view('footer');
 		}
 		else

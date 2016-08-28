@@ -7,30 +7,50 @@
 
 <table class="table">
 <tr>
-	<td>送修日期</td>
-	<td>
+	<td class="text-center">送修日期</td>
+	<td><div class="col-xs-3">
 		<?=form_error('start_date')?>
 		<?php $start_date = (validation_errors() != '') ? set_value('start_date') : $lists_date; ?>
-		<?=form_input('start_date', $start_date)?>
+		<?php
+			$date_data = array (
+			'name'	=>	'start_date',
+			'id'	=>	'datepicker',
+			'class'	=>	'form-control',
+			'value'	=>	$start_date,
+			'placeholder'	=> '選擇日期');
+		echo form_input($date_data);
+		?>
+		</div>
 	</td>
 </tr>
 <tr>
-	<td>手機/電話號碼</td>
-	<td>
+	<td class="text-center">手機/電話號碼</td>
+	<td><div class="col-xs-3">
 		<?=form_error('phone')?>
 		<?php $phone = (validation_errors() != '') ? set_value('phone') : $lists_phone; ?>
-		<?=form_input('phone', $phone)?></td>
+		<?php
+			$phone_data = array (
+			'name'	=>	'phone',
+			'class'	=>	'form-control',
+			'value'	=>	$phone);
+		echo form_input($phone_data);
+		?></div></td>
 </tr>
 <tr>
-	<td>客戶姓名</td>
-	<td><?=form_error('customer_name')?>
-		<?=form_input('customer_name', set_value('customer_name'))?></td>
+	<td class="text-center">客戶姓名</td>
+	<td><div class="col-xs-3"><?=form_error('customer_name')?>
+		<?php
+			$name_data = array (
+			'name'	=>	'customer_name',
+			'class'	=>	'form-control');
+		echo form_input($name_data);
+		?></div></td>
 </tr>
 </table>
 <?php
 	if(empty($lists_his))
 	{
-		echo '<h2>查無過去送修紀錄</h2>';
+		echo '<h2 class="bg-info">查無過去送修紀錄</h2>';
 	}
 	else 
 	{
@@ -38,6 +58,7 @@
 	}
 ?>
 <table class="table">
+
 <tr>
 	<td>選取</td>
 	<td>送修日期</td>
@@ -45,6 +66,7 @@
 	<td>客戶姓名</td>
 	<td>是否結案</td>
 </tr>
+<tbody class="table-striped">
 <?php foreach ($lists_his as $row): ?>
 <tr>
 	<td><?=form_radio('customer_name_old', $row->customer_name, FALSE);?></td>
@@ -54,8 +76,16 @@
 	<td><?=str_replace($search, $replace, $row->closed);?></td>
 </tr>
 <?php endforeach; ?>
-
+</tbody>
 </table>
-<?=form_submit('send', '送出')?>
-<?=form_reset('reset', '取消')?>
+    <?php
+    $but1 = array (
+      'name'  =>  'sent',
+      'type'  =>  'submit',
+      'content' =>  '送出',
+      'class' =>  'btn btn-primary',
+      'accesskey'	=>	's');
+    echo form_button($but1);
+    ?> ｜ 
+    <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
 <?=form_close()?>

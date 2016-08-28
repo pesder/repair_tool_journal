@@ -61,4 +61,74 @@ class Search extends CI_Controller {
 			$this->load->view('footer');
 		}
 	}
+	public function query_repaired()
+	{
+		
+		$data['choosed'] = '未完修訂單';
+		$data['form'] = '/Search/query_repaired';
+		$data['lists'] =$this->repair_list_model->queryby('repaired', '0');
+		if (empty($this->input->post('checked')))
+		{
+			// 載入 view
+			$this->load->view('header-jquery');
+			$this->load->view('search_query_undone', $data);
+			$this->load->view('footer');
+		}
+		else
+		{
+		$selected = $this->input->post('checked');
+		$querydata['repaired'] = '1';
+		for ($i = 0; $i < count($selected); $i++) {
+			$this->repair_list_model->modify($selected[$i], $querydata);
+		}
+		redirect('/Search/query_repaired');
+		}
+	}
+	public function query_call()
+	{
+		
+		$data['choosed'] = '已完修未聯絡訂單';
+		$data['form'] = '/Search/query_call';
+		$data['lists'] =$this->repair_list_model->queryby_and('repaired', '1', 'call_date', '0000-00-00');
+		if (empty($this->input->post('checked')))
+		{
+			// 載入 view
+			$this->load->view('header-jquery');
+			$this->load->view('search_query_call', $data);
+			$this->load->view('footer');
+		}
+		else
+		{
+		$selected = $this->input->post('checked');
+		$querydata['call_date'] = $this->input->post('call_date');
+		for ($i = 0; $i < count($selected); $i++) {
+			$this->repair_list_model->modify($selected[$i], $querydata);
+		}
+		redirect('/Search/query_call');
+		}
+	}
+	public function query_return()
+	{
+		
+		$data['choosed'] = '已完修未取回訂單';
+		$data['form'] = '/Search/query_return';
+		$data['lists'] =$this->repair_list_model->queryby_and('repaired', '1', 'return_date', '0000-00-00');
+		if (empty($this->input->post('checked')))
+		{
+			// 載入 view
+			$this->load->view('header-jquery');
+			$this->load->view('search_query_return', $data);
+			$this->load->view('footer');
+		}
+		else
+		{
+		$selected = $this->input->post('checked');
+		$querydata['closed'] = '1';
+		$querydata['return_date'] = $this->input->post('return_date');
+		for ($i = 0; $i < count($selected); $i++) {
+			$this->repair_list_model->modify($selected[$i], $querydata);
+		}
+		redirect('/Search/query_return');
+		}
+	}	
 }

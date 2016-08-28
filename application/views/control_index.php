@@ -1,0 +1,4 @@
+ <h1 class="bg-primary text-center">電機維修單管理系統</h1>
+ <h2 class="bg-default text-center">維修單登記</h2>
+ <a href="<?=config_item('base_url');?>/index.php/Lists/add_list/" class="btn btn-primary">新增維修單</a> | <a href="<?=config_item('base_url');?>/index.php/Lists/add_list_last/" class="btn btn-primary">以最後一筆資料日期新增維修單</a> | <a href="<?=config_item('base_url');?>/index.php/Lists" class="btn btn-primary">維修單一覽/修改</a>
+            <td><a href="<?=config_item('base_url');?>/index.php/Lists/modify/" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Lists/delete/>" class="btn btn-primary" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
