@@ -45,7 +45,7 @@
 		<td class="text-center"><div class="form-group"><?php
 				if ($lists_id->repaired == '0') 
 				{
-					echo form_checkbox('repaired', '0', FALSE);
+					echo form_checkbox('repaired', '1', FALSE);
 				}
 				else
 				{
@@ -82,7 +82,7 @@
 		<td class="text-center"><?php
 				if ($lists_id->closed == '0') 
 				{
-					echo form_checkbox('closed', '0', FALSE);
+					echo form_checkbox('closed', '1', FALSE);
 				}
 				else
 				{
