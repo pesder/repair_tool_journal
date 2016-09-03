@@ -28,8 +28,8 @@ class Repair_tool_parts extends CI_Controller {
 	{
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query($tooltype_id);
-		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
-		$data['part_list'] = $this->parts_model->query_bytype($tooltype_id);
+		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id, 'tool_name', 'asc');
+		$data['part_list'] = $this->parts_model->query_bytype($tooltype_id, 'p_name','asc');
 		$data['repair_list'] = $this->repair_tools_model->query($lists_id);
 		$data['lists_id'] = $lists_id;
 		$data['type_id'] = $tooltype_id;
@@ -82,8 +82,8 @@ class Repair_tool_parts extends CI_Controller {
 	{
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query($tooltype_id);
-		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
-		$data['part_list'] = $this->parts_model->query_bytype($tooltype_id);
+		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id, 'tool_name', 'asc');
+		$data['part_list'] = $this->parts_model->query_bytype($tooltype_id, 'p_name','asc');
 		$data['workid'] = $work_id;
 		$data['lists_id'] = $lists_id;
 		$data['type_id'] = $tooltype_id;

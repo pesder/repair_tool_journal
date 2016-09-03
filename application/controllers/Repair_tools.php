@@ -27,7 +27,7 @@ class Repair_tools extends CI_Controller {
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query($tooltype_id);
 		$data['vendor'] = $this->vendor_model->query();
-		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
+		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id, 'tool_name', 'asc');
 		
 		// $data['tooltype_list'] = $this->tool_type_model->get_array();
 		// $data['vendor_list'] = $this->vendor_model->get_array();
@@ -94,7 +94,7 @@ class Repair_tools extends CI_Controller {
 		// 載入種類及廠商
 		$data['tooltype'] = $this->tool_type_model->query($tooltype_id);
 		$data['vendor'] = $this->vendor_model->query();
-		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id);
+		$data['tool_list'] = $this->tools_model->query_bytype($tooltype_id, 'tool_name', 'asc');
 		
 		// $data['tooltype_list'] = $this->tool_type_model->get_array();
 		// $data['vendor_list'] = $this->vendor_model->get_array();

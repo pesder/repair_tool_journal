@@ -36,13 +36,13 @@ class parts_model extends CI_Model {
         	}
         }
         //查詢某類工具
-        public function query_bytype($typeid) 
+        public function query_bytype($typeid, $sort_type, $sort_order) 
         {
 
             $this->db->select('*');
             $this->db->from('parts');
             $this->db->where('type', $typeid);
-            $this->db->order_by('id','desc');
+            $this->db->order_by($sort_type, $sort_order);
             //$this->db->where();
             $query = $this->db->get();
             return $query->result();
