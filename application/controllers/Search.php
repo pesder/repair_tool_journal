@@ -131,4 +131,17 @@ class Search extends CI_Controller {
 		redirect('/Search/query_return');
 		}
 	}	
+	public function query_period()
+	{
+		$this->load->library('pagination');
+		$config['base_url'] = '';
+		$config['total_rows'] = 200;
+		$config['per_page'] = 25;
+		$config['full_tag_open'] = '<nav> <ul class="pagination">';
+		$config['full_tag_close'] = '</ul></nav>';
+		$config['next_tag_open'] = '<span aria-hidden="true">';
+		$config['next_tag_close'] = '</span>';
+		$config['prev_tag_open'] = '<span aria-hidden="true">';
+		$config['prev_tag_close'] = '</span>';
+	}
 }
