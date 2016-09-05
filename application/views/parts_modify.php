@@ -47,6 +47,6 @@
       'class' =>  'btn btn-primary',
       'accesskey'	=>	's');
     echo form_button($but1);
-    ?> ｜ <a href="<?=config_item('base_url');?>/index.php/Vendor/index/" class="btn btn-primary" accesskey="p">回零件列表</a> ｜ 
+    ?> ｜ <a href="<?=config_item('base_url');?>/index.php/Parts/index/" class="btn btn-primary" accesskey="p">回零件列表</a> ｜ 
     <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
 <?=form_close()?>
