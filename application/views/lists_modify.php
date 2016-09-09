@@ -181,7 +181,7 @@
 <div class="container-fluid">
 <div class="row">
 <?php foreach ($tooltype as $row) : ?>
-	<div class="col-md-3">
+	<div class="col-sm-3">
 	<a href="<?=config_item('base_url');?>/index.php/Repair_tools/add_tool/<?=$lists_id->id?>/<?=$row->id?>" class="btn btn-success btn-success-spacing">新增｛<?=$row->type_name?>｝工具</a>｜
 	</div>
 <?php endforeach; ?>

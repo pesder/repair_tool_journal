@@ -15,25 +15,25 @@
 	<div class="container-fluid">
 	<tr><td>
 	<div class="row">
-	<div class="col-md-1">類別名稱</div>
-	<div class="col-md-11"><?=$tooltype->type_name;?></div>
+	<div class="col-sm-1">類別名稱</div>
+	<div class="col-sm-11"><?=$tooltype->type_name;?></div>
 	</div>
 	</td></tr>
 	<tr><td>
 	<div class="row">
-	<div class="col-md-1">工具列表</div>
-	<div class="col-md-11">
+	<div class="col-sm-1">工具列表</div>
+	<div class="col-sm-11">
 	<div class="row">
 	<?php foreach ($tool_list as $row) : ?>
-		<div class="col-md-4 panel panel-default">
-		<div class="col-md-3">
+		<div class="col-sm-4 panel panel-default">
+		<div class="col-sm-3">
 	<div class="radio-inline">
 				<div class="form-group">
 				<?=form_radio('tool_id', $row->id, FALSE);?>
 				<?=form_label($row->tool_name, 'tname');?>
 				</div>
 			</div></div>
-			<div class="col-md-3"><?=str_replace($orig_vid, $rep_vid, $row->vendor); ?></div>
+			<div class="col-sm-3"><?=str_replace($orig_vid, $rep_vid, $row->vendor); ?></div>
 			</div>
 	<?php endforeach; ?>
 	</div>
@@ -43,8 +43,8 @@
 	<tr>
 		<td>
 			<div class="row">
-				<div class="col-md-1">新增工具名稱</div>
-				<div class="col-md-2">
+				<div class="col-sm-1">新增工具名稱</div>
+				<div class="col-sm-2">
 					<div class="form-group">
 					<?=form_radio('tool_id', '', FALSE);?>
 					<?php
@@ -55,13 +55,13 @@
 					?>
 					</div>
 				</div>
-				<div class="col-md-1">廠牌</div>
-				<div class="col-md-8">
+				<div class="col-sm-1">廠牌</div>
+				<div class="col-sm-8">
 				<div class="row">
 					<?php
 
 					foreach ($vendor as $row) {
-					echo '<div class="col-md-3 panel panel-default">';
+					echo '<div class="col-sm-3 panel panel-default">';
 						if($row->id == 2)
 						{
 							echo '<div class="radio-inline">';
@@ -87,10 +87,10 @@
 	<tr>
 		<td>
 			<div class="row">
-			<div class="col-md-1">工具數量</div>
-			<div class="col-md-11">
+			<div class="col-sm-1">工具數量</div>
+			<div class="col-sm-11">
 			<div class="row">
-			<div class="col-md-2">
+			<div class="col-sm-2">
 				<?=form_error('tool_number')?>
 				<?php
 					$number_data = array (

@@ -16,21 +16,21 @@
 	<tr>
 		<td>
 	<div class="row">
-	<div class="col-md-1">類別名稱</div>
-	<div class="col-md-5"><?=$tooltype->type_name;?></div>
-	<div class="col-md-1">工具名稱</div>
-	<div class="col-md-5"><?=str_replace($orig_tid, $rep_tid, 'TO' . $repair_list->tool_id . 'OL');?></div>
+	<div class="col-sm-1">類別名稱</div>
+	<div class="col-sm-5"><?=$tooltype->type_name;?></div>
+	<div class="col-sm-1">工具名稱</div>
+	<div class="col-sm-5"><?=str_replace($orig_tid, $rep_tid, 'TO' . $repair_list->tool_id . 'OL');?></div>
 	</div>
 		</td>
 	</tr>
 	<tr>
 		<td>
 	<div class="row">
-	<div class="col-md-1">零件名稱</div>
-	<div class="col-md-11">
+	<div class="col-sm-1">零件名稱</div>
+	<div class="col-sm-11">
 	<div class="row">
 	<?php foreach ($part_list as $row) : ?>
-		<div class="col-md-3 panel panel-default">
+		<div class="col-sm-3 panel panel-default">
 		
 		<div class="radio-inline">
 				<div class="form-group">
@@ -48,8 +48,8 @@
 	<tr>
 		<td>
 	<div class="row">
-	<div class="col-md-1">新增零件名稱</div>
-	<div class="col-md-4">
+	<div class="col-sm-1">新增零件名稱</div>
+	<div class="col-sm-4">
 		<?=form_radio('parts_id', '', FALSE);?>
 		<?php
 			$newpart_data = array (
@@ -65,8 +65,8 @@
 	<tr>
 		<td>
 	<div class="row">
-	<div class="col-md-1">價格</div>
-	<div class="col-md-3">
+	<div class="col-sm-1">價格</div>
+	<div class="col-sm-3">
 		<?=form_error('price')?>
 		<?php
 			$price_data = array (
