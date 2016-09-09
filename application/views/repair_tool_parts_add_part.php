@@ -6,54 +6,68 @@
       $rep_tid;
      for ($j =0; $j < count($tool_list); $j++)
     {
-      $orig_tid[$j] = 'TOOL' . $tool_list[$j]->id;
+      $orig_tid[$j] = 'TO' . $tool_list[$j]->id . 'OL';
       $rep_tid[$j] = $tool_list[$j]->tool_name;
     }
 ?>
  <h2 class="bg-info">工具編號：<?=$lists_id?></h2>
 <table class="table">
+<div class="container-fluid">
 	<tr>
-		<td class="text-center">類別名稱</td>
-		<td><?=$tooltype->type_name;?>
+		<td>
+	<div class="row">
+	<div class="col-md-1">類別名稱</div>
+	<div class="col-md-5"><?=$tooltype->type_name;?></div>
+	<div class="col-md-1">工具名稱</div>
+	<div class="col-md-5"><?=str_replace($orig_tid, $rep_tid, 'TO' . $repair_list->tool_id . 'OL');?></div>
+	</div>
 		</td>
-		<td class="text-center">工具名稱</td>
-		<td><?=str_replace($orig_tid, $rep_tid, 'TOOL' . $repair_list->tool_id);?></td>
 	</tr>
 	<tr>
-		<td class="text-center">零件名稱</td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
+		<td>
+	<div class="row">
+	<div class="col-md-1">零件名稱</div>
+	<div class="col-md-11">
+	<div class="row">
 	<?php foreach ($part_list as $row) : ?>
-		<tr>
-			<td></td>
-			<td><div class="radio-inline">
+		<div class="col-md-3 panel panel-default">
+		
+		<div class="radio-inline">
+				<div class="form-group">
 				<?=form_radio('parts_id', $row->id, FALSE);?>
 				<?=form_label($row->p_name, 'pname');?>
-			</div></td>
-			<td></td>
-			<td></td>
-		</tr>
+				</div>
+			</div>
+			</div>
 	<?php endforeach; ?>
+	</div>
+	</div>		
+	</div>
+		</td>
+	</tr>
 	<tr>
-		<td class="text-center">新增零件名稱</td>
-		<td><?=form_radio('parts_id', '', FALSE);?>
+		<td>
+	<div class="row">
+	<div class="col-md-1">新增零件名稱</div>
+	<div class="col-md-4">
+		<?=form_radio('parts_id', '', FALSE);?>
 		<?php
 			$newpart_data = array (
 			'name'	=> 'part_name_new',
 			'class'	=>	'form-control');
 		echo form_input($newpart_data);
 		?>
-		</td>
-		<td></td>
-		<td>			
+	</div>
 
+	</div>	
 		</td>
 	</tr>
 	<tr>
-		<td class="text-center">價格</td>
-		<td><?=form_error('price')?>
+		<td>
+	<div class="row">
+	<div class="col-md-1">價格</div>
+	<div class="col-md-3">
+		<?=form_error('price')?>
 		<?php
 			$price_data = array (
 			'name'	=> 'price',
@@ -61,8 +75,11 @@
 			'value'	=>	'0');
 		echo form_input($price_data);
 		?>
-</td>
+	</div>
+	</div>	
+		</td>
 	</tr>
+</div>
 </table>
     <?php
     $but1 = array (

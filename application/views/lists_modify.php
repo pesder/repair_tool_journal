@@ -6,7 +6,7 @@
       $rep_toolid;
      for ($i =0; $i < count($toollist); $i++)
     {
-      $orig_toolid[$i] = 'TOOL' . $toollist[$i]->id . 'T';
+      $orig_toolid[$i] = 'TO' . $toollist[$i]->id . 'OL';
       $rep_toolid[$i] = $toollist[$i]->tool_name;
     }
     // 取出工具種類代號轉換用字串陣列
@@ -14,7 +14,7 @@
       $rep_typeid;
      for ($i =0; $i < count($tooltype); $i++)
     {
-      $orig_typeid[$i] = 'TYPE' . $tooltype[$i]->id . 'TP';
+      $orig_typeid[$i] = 'TY' . $tooltype[$i]->id . 'PE';
       $rep_typeid[$i] = $tooltype[$i]->type_name;
     }
     // 取出零件種類代號轉換用字串陣列
@@ -22,7 +22,7 @@
       $rep_partid;
      for ($i =0; $i < count($partlist); $i++)
     {
-      $orig_partid[$i] = 'PART' . $partlist[$i]->id . 'P';
+      $orig_partid[$i] = 'PA' . $partlist[$i]->id . 'RT';
       $rep_partid[$i] = $partlist[$i]->p_name;
     }
 ?>
@@ -178,9 +178,15 @@
     ?> ｜ <a href="<?=config_item('base_url');?>/index.php/Lists/" class="btn btn-primary" accesskey="l">回維修單列表</a>｜ 
     <a href="<?=config_item('base_url');?>/index.php/Control/" class="btn btn-primary" accesskey="h">回主選單</a>
     <hr>
+<div class="container-fluid">
+<div class="row">
 <?php foreach ($tooltype as $row) : ?>
+	<div class="col-md-3">
 	<a href="<?=config_item('base_url');?>/index.php/Repair_tools/add_tool/<?=$lists_id->id?>/<?=$row->id?>" class="btn btn-success btn-success-spacing">新增｛<?=$row->type_name?>｝工具</a>｜
+	</div>
 <?php endforeach; ?>
+</div>
+</div>
 <?php
 	if (empty($lists_tools)) 
 	{
@@ -203,8 +209,8 @@
 		<?php foreach ($lists_tools as $trow) : ?>
 		<tr>
 			<td><?= $trow->id ?></td>
-			<td><?=str_replace($orig_typeid, $rep_typeid, 'TYPE' . $trow->type_id . 'TP'); ?></td>
-			<td><?=str_replace($orig_toolid, $rep_toolid, 'TOOL' . $trow->tool_id . 'T'); ?></td>
+			<td><?=str_replace($orig_typeid, $rep_typeid, 'TY' . $trow->type_id . 'PE'); ?></td>
+			<td><?=str_replace($orig_toolid, $rep_toolid, 'TO' . $trow->tool_id . 'OL'); ?></td>
 			<td><?=$trow->tool_number ?></td>
 			<td><a href="<?=config_item('base_url');?>/index.php/Repair_tools/modify/<?=$lists_id->id?>/<?=$trow->id?>/<?=$trow->type_id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tools/delete/<?=$lists_id->id?>/<?=$trow->id?>" class="btn btn-danger" onclick="return confirm('確定要刪除嗎？')">刪除</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tool_parts/add_part/<?=$lists_id->id?>/<?=$trow->id?>/<?=$trow->type_id?>" class="btn btn-primary">新增零件</a></td>
 		</tr>
@@ -232,8 +238,8 @@
 		<?php foreach ($lists_parts as $prow) : ?>
 		<tr>
 			<td><?= $prow->id ?></td>
-			<td><?=str_replace($orig_typeid, $rep_typeid, 'TYPE' . $prow->type_id . 'TP'); ?></td>
-			<td><?=str_replace($orig_partid, $rep_partid, 'PART' . $prow->parts_id . 'P'); ?></td>
+			<td><?=str_replace($orig_typeid, $rep_typeid, 'TY' . $prow->type_id . 'PE'); ?></td>
+			<td><?=str_replace($orig_partid, $rep_partid, 'PA' . $prow->parts_id . 'RT'); ?></td>
 			<td><?=$prow->price ?></td>
 			<td><a href="<?=config_item('base_url');?>/index.php/Repair_tool_parts/modify/<?=$lists_id->id?>/<?=$prow->id?>/<?=$prow->type_id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Repair_tool_parts/delete/<?=$lists_id->id?>/<?=$prow->id?>" class="btn btn-danger" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
 		</tr>
