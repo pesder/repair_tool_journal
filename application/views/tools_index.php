@@ -6,7 +6,7 @@
       $rep_typeid;
      for ($i =0; $i < count($tooltype); $i++)
     {
-      $orig_typeid[$i] = 'TYPE' . $tooltype[$i]->id;
+      $orig_typeid[$i] = 'TY' . $tooltype[$i]->id .'PE';
       $rep_typeid[$i] = $tooltype[$i]->type_name;
     }
         // 取出廠商代號轉換用字串陣列
@@ -14,7 +14,7 @@
       $rep_vid;
      for ($j =0; $j < count($vendor); $j++)
     {
-      $orig_vid[$j] = 'VENDOR' . $vendor[$j]->id;
+      $orig_vid[$j] = 'VEN' . $vendor[$j]->id . 'DOR';
       $rep_vid[$j] = $vendor[$j]->v_name;
     }
     ?>
@@ -33,9 +33,9 @@
           <?php foreach ($tools as $row): ?>
           <tr>
             <td><?=$row->id?></td>
-            <td><?=str_replace($orig_typeid, $rep_typeid, 'TYPE' . $row->type)?></td>
+            <td><?=str_replace($orig_typeid, $rep_typeid, 'TY' . $row->type . 'PE')?></td>
             <td><?=$row->tool_name?></td>
-            <td><?=str_replace($orig_vid, $rep_vid, 'VENDOR' . $row->vendor)?></td>
+            <td><?=str_replace($orig_vid, $rep_vid, 'VEN' . $row->vendor . 'DOR')?></td>
             <td><a href="<?=config_item('base_url');?>/index.php/Tools/modify/<?=$row->id?>" class="btn btn-primary">修改</a> | <a href="<?=config_item('base_url');?>/index.php/Tools/delete/<?=$row->id?>" class="btn btn-danger" onclick="return confirm('確定要刪除嗎？')">刪除</a></td>
           </tr>
         <?php endforeach; ?>
